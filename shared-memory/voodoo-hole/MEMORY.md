@@ -1,0 +1,45 @@
+# Memory Index
+
+- [User Profile](user_profile.md) — Non-native English speaker, experienced Unity/C# dev, strong .NET conventions awareness
+- [Feedback: Code Style](feedback_code_style.md) — Key style preferences established over the Perks system sessions
+- [Feedback: Reuse over Duplication](feedback_reuse_over_duplication.md) — Grep for an existing class/view/helper and compose it before writing a parallel one; "stub" is no exemption
+- [Feedback: .editorconfig is style source of truth](feedback_editorconfig_source_of_truth.md) — Judge naming/formatting against .editorconfig, not neighboring code; public fields are PascalCase
+- [Feedback: Simplicity First](feedback_simplicity_first.md) — Always lead with the simplest approach, avoid over-engineering
+- [Feedback: Commit Message Types](feedback_commit_messages.md) — Meta/housekeeping commits use Cleanup or Fix, not Development
+- [Project: Perks System](project_perks.md) — Current state of the Perks feature (HOL-7086), ready for testing
+- [Project: UITable System](project_uitablepreview.md) — UITable branch status: sample scene wired, preview fixed, Play Mode testing pending
+- [Feedback: UGUI Prefab Structure](feedback_ugui_prefab_structure.md) — Prefab root holds only the script; visual components (TMP_Text, Image) go on dedicated child GOs
+- [Feedback: Prefab Restructuring Checklist](feedback_prefab_restructure.md) — Read component values before restructuring; recompile scripts before touching dependent prefabs
+- [Feedback: MCP GO Creation Checklist](feedback_mcp_go_creation.md) — After create_gameobject, always set layer to match parent and verify scale is (1,1,1)
+- [Feedback: Review on Edit](feedback_review_on_edit.md) — Always do a full rule-compliance pass on any file being edited
+- [Feedback: Commit Timing](feedback_commit_timing.md) — "Prepare commits" means preview first; only execute after explicit approval
+- [Feedback: Multi-Action Approval](feedback_multi_action_approval.md) — A brief "yes" to a message with multiple proposed actions isn't blanket approval; run lower-risk one first, re-confirm the rest
+- [Feedback: Ask for structural decisions](feedback_ask_for_structural_decisions.md) — Branch creation/switches and other PR-shape decisions need confirmation even under "don't stop for clarifying questions"
+- [Feedback: No session history in comments](feedback_no_session_history_in_comments.md) — Don't bake "we tried X then realized Y" reasoning into comments; readers don't have that context
+- [Feedback: Commit Scope Discipline](feedback_commit_scope.md) — Never include unrelated changes in a feature commit, even tiny cleanups; revert them instead
+- [Feedback: Agent usage — direct tools first](feedback_agent_usage.md) — Never spawn Explore agents when file paths are known; use Read/Grep/Glob directly
+- [Feedback: Unity IMGUI horizontal buttons](feedback_unity_imgui_hbuttons.md) — IMGUI BeginHorizontal cannot evenly distribute buttons; known Unity limitation, don't chase it
+- [Feedback: README/Markdown Style](feedback_readme_style.md) — Per-image widths (not uniform), no --- dividers under headings, screenshots go at end of section
+- [Feedback: Using statement removal](feedback_using_removal.md) — Grep ALL types from the namespace before removing a using; don't assume one type was the only reason
+- [Reference: ClickUp Team IDs](reference_clickup_team.md) — Alger (87664576) and Olga (99604247) user IDs for task assignment
+- [Feedback: ClickUp tag API workaround](feedback_clickup_tags.md) — add_tag_to_task fails; use tags param in create_task instead
+- [Feedback: ClickUp Task Creation Rules](feedback_clickup_task_creation.md) — No feature prefix on subtask names; default tag "dev"; default status PRIORITIZED; ask assignee for non-dev tasks
+- [Feedback: ClickUp comment formatting](feedback_clickup_comment_formatting.md) — Comments via MCP don't render markdown bold/headers; only inline `code` works
+- [User: Three project copies share memory](user_project_copies.md) — Hole.io / _Release / _Live are the same project; memory is junctioned, sessions are not
+- [Reference: Collections Notion GDD sync](reference_collections_notion_gdd.md) — Two Notion code blocks mirror `EconomyConfig.CollectionsRewards` and the `MilestonesData` example; keep them updated when those code defaults change
+- [Feedback: Skip agents for clear plans](feedback_skip_agents_for_clear_plans.md) — No implementation agents exist; main thread drives all implementation. Delegate only for planning, review, or debugging.
+- [Feedback: Reviewer null-safety nuance](feedback_reviewer_null_safety_nuance.md) — The `?.` / `??` rule is Unity-Object-only; plain C# objects are fine. Verify type before flagging.
+- [Feedback: No Unity Reimport All](feedback_no_unity_reimport_all.md) — NEVER trigger Assets/Reimport All. On refresh_assets timeout, STOP and report — don't escalate.
+- [Feedback: Debug group in FIELDS AND PROPERTIES](feedback_region_debug_fields.md) — `// Debug` sub-category inside FIELDS AND PROPERTIES is accepted style; do not flag it.
+- [Feedback: No constants for single-use editor literals](feedback_editor_literal_no_const.md) — strings, numbers, AND colors in Editor-only code stay inline unless reused at 2+ sites; "feels semantic" is not grounds to extract
+- [Feedback: IronSource LevelPlayVersions.json](feedback_ironsource_versions_file.md) — Auto-modified by VoodooSauce SDK; never commit this file
+- [Feedback: Typed Init over hooks](feedback_typed_init_over_hooks.md) — Prefer a typed virtual Init override on a generic base over OnX template-method hooks
+- [Feedback: UIStateToggle state IDs](feedback_uistatetoggle_states.md) — State IDs go in a static const-string class (incl. a From(enum) helper for enum-backed toggles), never raw literals
+- [Feedback: Popup Params class](feedback_popup_params_class.md) — Each popup owns a minimal nested Params class; don't reuse service-level params with unneeded fields
+- [Feedback: Sonnet 200K context](feedback_sonnet_200k_context.md) — User runs Sonnet at default 200K (never 1M/usage-credit billing); bias Opus→Sonnet switches toward /clear + self-contained prompt
+- [Project: UIAnimator Preview Refactor](project_uianimator_preview_refactor.md) — Implemented & committed (2026-06-04, 5 commits); manual editor verification pass still pending
+- [Project: Paginated Pages Base Cache](project_paginated_pages_base_cache.md) — Deferred: pull the Pages cache up to UIPaginatedScreen base via abstract CollectPages(); stop replicating it per screen
+- [Feedback: Plan mode suppresses skill output](feedback_plan_mode_skill_output.md) — Interrupt + next-steps skill = silent output (all routes); fix is no-interrupt: auto-run /next-steps after plan approval, then stop and wait
+- [Feedback: UI_DEVELOPMENT.md is a hard prerequisite](feedback_ui_development_prereq.md) — Read before any UI/Canvas code; localization rule (LeanLocalizationTMPText + .PhraseName) lives there, not in code-style.md; pass it to reviewers too
+- [Feedback: Numbered execution steps](feedback_numbered_execution_steps.md) — Sequential steps use numbers, not letters; letters read as alternative approaches
+- [Project: Mobile-only build targets](project_mobile_only_targets.md) — Editor errors under a Standalone build target are misconfigurations, not bugs; check reporter's build target first

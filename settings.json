@@ -1,0 +1,63 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git *)"
+    ],
+    "defaultMode": "auto"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& \"$env:USERPROFILE\\.claude\\scripts\\flash-terminal.ps1\" -Sound Asterisk -ToastIcon None -ProgressState Warning -Title 'Claude Code' -Message 'Task completed'",
+            "shell": "powershell"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& \"$env:USERPROFILE\\.claude\\scripts\\flash-terminal.ps1\" -Sound Exclamation -ToastIcon Warning -ProgressState Error -Title 'Claude Code' -Message 'Needs your attention'",
+            "shell": "powershell"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& \"$env:USERPROFILE\\.claude\\scripts\\flash-terminal.ps1\" -Sound None -ToastIcon None -ProgressState Clear",
+            "shell": "powershell"
+          }
+        ]
+      }
+    ],
+    "UserPromptExpansion": [
+      {
+        "matcher": "next-steps",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& \"$env:USERPROFILE\\.claude\\scripts\\next-steps-context.ps1\"",
+            "shell": "powershell"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "csharp-lsp@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true
+  },
+  "effortLevel": "high",
+  "autoUpdatesChannel": "latest",
+  "skipAutoPermissionPrompt": true
+}

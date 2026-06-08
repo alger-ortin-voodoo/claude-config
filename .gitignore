@@ -1,0 +1,14 @@
+# Ignore every top-level entry by default…
+/*
+
+# …then re-include only the portable config we sync between machines.
+!/.gitignore
+!/CLAUDE.md
+!/settings.json
+!/keybindings.json
+!/commands/
+!/skills/
+!/agents/
+!/rules/
+!/scripts/
+!/shared-memory/
