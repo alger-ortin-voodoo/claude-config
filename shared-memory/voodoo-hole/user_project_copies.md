@@ -22,7 +22,11 @@ All three are the same project — rules, skills, and memory apply equally to al
 
 A leftover `memory.bak` may exist in the Release folder from when the junction was first set up — that's old state, not active memory.
 
-**Config sync repo:** `~/.claude` is a git repo (private, `alger-ortin-voodoo/claude-config`) tracking only portable config via an ignore-everything-then-allowlist `.gitignore` (`CLAUDE.md`, `settings.json`, `keybindings.json`, `commands/`, `skills/`, `agents/`, `rules/`, `scripts/`, `shared-memory/`). It syncs this desktop with a laptop (laptop project path `C:\Voodoo\Hole`, slug `C--Voodoo-Hole`, junctioned to the same canonical store). Secrets (`.credentials.json`), `settings.local.json`, `projects/`, `sessions/`, etc. are ignored.
+**Config sync repo:** `~/.claude` is a git repo (private, `alger-ortin-voodoo/claude-config`) tracking only portable config via an ignore-everything-then-allowlist `.gitignore` (`CLAUDE.md`, `settings.json`, `keybindings.json`, `commands/`, `skills/`, `agents/`, `rules/`, `scripts/`, `shared-memory/`). It syncs this desktop with a laptop. On the laptop the canonical store lives at `C:\Users\Alger\.claude\shared-memory\voodoo-hole` (note: laptop user profile is `Alger`, not the desktop's `Alger Voodoo` — junction *targets* are per-machine absolute paths and are NOT synced; only the tracked files under `shared-memory/` are). The laptop has two clones, both junctioned to that store:
+- `C:\Voodoo\Hole` → slug `C--Voodoo-Hole`
+- `C:\Voodoo\Hole_Release` → slug `C--Voodoo-Hole-Release`
+
+Secrets (`.credentials.json`), `settings.local.json`, `projects/`, `sessions/`, etc. are ignored.
 
 **How to apply:** Treat any of the three folders as the same project. When writing memory from any copy, no special handling is needed — the junction routes the write to the canonical folder. **But memory now lives inside the git repo: to sync a memory change to the laptop it must be committed and pushed** (the user does this; never auto-commit). Sessions (`.jsonl` files) are NOT shared; only memory + portable config is.
 
