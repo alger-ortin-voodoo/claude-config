@@ -1,6 +1,6 @@
 ---
 name: user-project-copies
-description: User maintains three local clones of the same Hole.io project and shares Claude memory across all of them via NTFS junctions
+description: User maintains three local clones of the same Hole.io project sharing Claude memory via NTFS junctions; canonical store lives in the private claude-config sync repo (desktop+laptop)
 metadata:
   type: user
 ---
@@ -13,15 +13,18 @@ The user keeps three local copies of the same Unity project so they can do paral
 
 All three are the same project — rules, skills, and memory apply equally to all of them.
 
-**Memory is shared across all three** via NTFS junctions:
+**Memory is shared across all three** via NTFS junctions, and the canonical store is now under the synced config repo (relocated 2026-06-08):
 
-- Canonical: `C:\Users\Alger Voodoo\.claude\projects\D--Voodoo-Hole-io\memory\` (real directory)
+- Canonical (real directory): `C:\Users\Alger Voodoo\.claude\shared-memory\voodoo-hole\`
+- `D--Voodoo-Hole-io\memory` — junction → canonical
 - `D--Voodoo-Hole-io-Release\memory` — junction → canonical
 - `D--Voodoo-Hole-io-Live\memory` — junction → canonical
 
 A leftover `memory.bak` may exist in the Release folder from when the junction was first set up — that's old state, not active memory.
 
-**How to apply:** Treat any of the three folders as the same project. When writing memory from a Release or Live session, no special handling is needed — the junction transparently routes the write to the canonical folder, so it'll be visible in the other two next session. Sessions (`.jsonl` files) are NOT shared; only memory is.
+**Config sync repo:** `~/.claude` is a git repo (private, `alger-ortin-voodoo/claude-config`) tracking only portable config via an ignore-everything-then-allowlist `.gitignore` (`CLAUDE.md`, `settings.json`, `keybindings.json`, `commands/`, `skills/`, `agents/`, `rules/`, `scripts/`, `shared-memory/`). It syncs this desktop with a laptop (laptop project path `C:\Voodoo\Hole`, slug `C--Voodoo-Hole`, junctioned to the same canonical store). Secrets (`.credentials.json`), `settings.local.json`, `projects/`, `sessions/`, etc. are ignored.
+
+**How to apply:** Treat any of the three folders as the same project. When writing memory from any copy, no special handling is needed — the junction routes the write to the canonical folder. **But memory now lives inside the git repo: to sync a memory change to the laptop it must be committed and pushed** (the user does this; never auto-commit). Sessions (`.jsonl` files) are NOT shared; only memory + portable config is.
 
 **⚠ Project source files are NOT junctioned — they are three separate clones on disk.** Only the Claude memory folder is junctioned. Editing a `.cs` / prefab / asset in one copy does NOT propagate to the others. Before creating or moving files, confirm which copy the user is working in — the `Primary working directory` in the harness Environment may not match the project the loaded `CLAUDE.md` came from. When in doubt, ask.
 

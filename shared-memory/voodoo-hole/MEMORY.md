@@ -25,7 +25,7 @@
 - [Feedback: ClickUp tag API workaround](feedback_clickup_tags.md) — add_tag_to_task fails; use tags param in create_task instead
 - [Feedback: ClickUp Task Creation Rules](feedback_clickup_task_creation.md) — No feature prefix on subtask names; default tag "dev"; default status PRIORITIZED; ask assignee for non-dev tasks
 - [Feedback: ClickUp comment formatting](feedback_clickup_comment_formatting.md) — Comments via MCP don't render markdown bold/headers; only inline `code` works
-- [User: Three project copies share memory](user_project_copies.md) — Hole.io / _Release / _Live are the same project; memory is junctioned, sessions are not
+- [User: Three project copies share memory](user_project_copies.md) — Hole.io / _Release / _Live are the same project; memory is junctioned to a canonical store synced via the private claude-config repo (desktop+laptop); sessions are not shared
 - [Reference: Collections Notion GDD sync](reference_collections_notion_gdd.md) — Two Notion code blocks mirror `EconomyConfig.CollectionsRewards` and the `MilestonesData` example; keep them updated when those code defaults change
 - [Feedback: Skip agents for clear plans](feedback_skip_agents_for_clear_plans.md) — No implementation agents exist; main thread drives all implementation. Delegate only for planning, review, or debugging.
 - [Feedback: Reviewer null-safety nuance](feedback_reviewer_null_safety_nuance.md) — The `?.` / `??` rule is Unity-Object-only; plain C# objects are fine. Verify type before flagging.
