@@ -66,6 +66,7 @@ ExitPlanMode only (no per-call overhead / no Stop fatigue); stateless, never rea
 regression); fires on approval only (rejection denies the tool → no PostToolUse). Hooks fire
 identically on desktop + CLI (verified SessionStart/SessionEnd firing on desktop same day).
 **Fallback if a build ignores additionalContext:** write the reminder to stderr and `exit 2`
-(PostToolUse exit-2 feeds stderr to the model). **STATUS: pending real-world confirmation** on the
-next desktop plan approval — verify with a plain "Yes" approval (not the typed-text option, which
-is recorded as a rejection per the Gotcha above).
+(PostToolUse exit-2 feeds stderr to the model). **STATUS: CONFIRMED WORKING on desktop (2026-06-09)**
+— a plain "Yes" plan approval correctly printed the next-steps recommendation and stopped instead
+of implementing; the `additionalContext` mechanism is honored on this build, so the exit-2 fallback
+was not needed.
