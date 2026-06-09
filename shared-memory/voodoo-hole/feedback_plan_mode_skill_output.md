@@ -53,3 +53,19 @@ prompt rules, redesign the workflow so the poisoned context never occurs — don
 hooks/gates; and never build PreToolUse gates that parse the live transcript mid-turn. A feature
 request for native "accept plan without implementing" was filed via /feedback (2026-06-04,
 v2.1.162).
+
+**v8 (2026-06-09, DESKTOP) — instruction-only flow breaks on the Claude Desktop app.** v7.1 relied
+purely on the model honoring the CLAUDE.md rule. On the desktop app, approving a plan injects a
+stronger built-in "you can start coding" continuation that overrides the soft instruction → the
+model jumps straight to implementing (CLI was unaffected; CLAUDE.md *is* loaded on desktop, skill
+works manually — confirmed not a sync/skill issue). Fix: a `PostToolUse` hook matched to
+`ExitPlanMode` (`scripts/post-plan-next-steps.ps1`) that emits `hookSpecificOutput.additionalContext`
+reasserting the rule at the moment of approval. **Why it does NOT repeat v3/v4:** scoped to
+ExitPlanMode only (no per-call overhead / no Stop fatigue); stateless, never reads the transcript
+(no flush race); does not invoke the skill and creates no interrupt marker (no silent-output
+regression); fires on approval only (rejection denies the tool → no PostToolUse). Hooks fire
+identically on desktop + CLI (verified SessionStart/SessionEnd firing on desktop same day).
+**Fallback if a build ignores additionalContext:** write the reminder to stderr and `exit 2`
+(PostToolUse exit-2 feeds stderr to the model). **STATUS: pending real-world confirmation** on the
+next desktop plan approval — verify with a plain "Yes" approval (not the typed-text option, which
+is recorded as a rejection per the Gotcha above).
