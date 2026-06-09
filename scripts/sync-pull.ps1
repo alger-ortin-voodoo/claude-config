@@ -1,20 +1,24 @@
-# sync-pull.ps1 — Pull latest claude-config at session start.
-# Fail-safe: must never block or error the session. Stays silent on success;
-# only emits a line when something needs the user's attention.
+# sync-pull.ps1 — SessionStart hook: pull latest claude-config.
+# Fully SILENT: logs to sync.log and writes nothing to stdout, so it can never pollute
+# the session context (an earlier version dumped an "offline" line into the chat).
+# The desktop app fires SessionStart on every tab focus/resume; a pull is a cheap no-op
+# when already up to date, and benefits cross-machine freshness when it isn't.
 $ErrorActionPreference = 'Continue'
 
 $repo = Join-Path $env:USERPROFILE '.claude'
+$log  = Join-Path $repo 'sync.log'          # top-level file -> gitignored by /*
 
-# Only act when this really is the synced config repo.
 if (-not (Test-Path (Join-Path $repo '.git'))) { return }
 
-# Rebase local commits onto the remote, autostashing any uncommitted edits so
-# the pull can never be blocked by a dirty working tree.
+$stamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
+
+# Rebase local commits onto the remote, autostashing any uncommitted edits.
 $null = git -C $repo pull --rebase --autostash origin main 2>&1
 
-# A non-zero exit means a conflict (or we're offline). Abort the half-applied
-# rebase so the repo is left clean and usable, and surface it once.
 if ($LASTEXITCODE -ne 0) {
+    # Conflict or offline: undo the half-applied rebase so the repo stays clean.
     $null = git -C $repo rebase --abort 2>&1
-    Write-Output "claude-config: auto-pull skipped (conflict or offline). Local state preserved; sync manually when convenient."
+    Add-Content $log "$stamp  start  pull FAILED (conflict/offline) -> aborted, local preserved"
+} else {
+    Add-Content $log "$stamp  start  pull ok"
 }
