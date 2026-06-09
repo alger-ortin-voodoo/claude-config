@@ -82,5 +82,6 @@
   },
   "effortLevel": "high",
   "autoUpdatesChannel": "latest",
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "agentPushNotifEnabled": false
 }
