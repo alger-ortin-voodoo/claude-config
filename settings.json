@@ -29,6 +29,18 @@
         ]
       }
     ],
+    "PostToolUse": [
+      {
+        "matcher": "ExitPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& \"$env:USERPROFILE\\.claude\\scripts\\post-plan-next-steps.ps1\"",
+            "shell": "powershell"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
