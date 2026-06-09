@@ -1,12 +1,11 @@
 # sync-push.ps1 — SessionEnd hook: commit & push pending claude-config changes.
 #
 # The desktop app fires SessionEnd on tab-switch / resume cycles, NOT just at a real
-# session end. To avoid a burst of "Auto-sync" commits while switching between parallel
-# sessions, this DEBOUNCES: it skips when any commit landed within $debounceMinutes.
-# It also logs each invocation's `reason` (from the hook's stdin JSON) to sync.log, so we
-# can later see which reasons correspond to tab-switches vs. a genuine quit and refine to
-# precise reason-filtering. Same-machine sessions share the files on disk and don't need
-# git to see each other; the push only matters cross-machine, so a short delay is free.
+# session end (both report reason=other — indistinguishable). To avoid a burst of
+# "Auto-sync" commits while switching between parallel sessions, this DEBOUNCES: it skips
+# when any commit landed within $debounceMinutes. It logs each invocation to sync.log.
+# Same-machine sessions share the files on disk and don't need git to see each other; the
+# push only matters for cross-machine sync, so a short delay is free.
 #
 # The repo's .gitignore re-includes only portable config, so `git add -A` can only ever
 # stage CLAUDE.md / settings / rules / scripts / shared-memory — never runtime files,
@@ -16,6 +15,20 @@ $ErrorActionPreference = 'Continue'
 $repo = Join-Path $env:USERPROFILE '.claude'
 $log  = Join-Path $repo 'sync.log'          # top-level file -> gitignored by /*
 $debounceMinutes = 15
+
+# Append a line to sync.log, keeping the file bounded so it can't grow without limit.
+# (Duplicated in sync-pull.ps1 on purpose — each hook script stays self-contained.)
+$logMaxLines  = 1000   # once the log passes this many lines...
+$logKeepLines = 500    # ...trim it back to this many most-recent lines.
+function Write-SyncLog([string]$message) {
+    Add-Content -Path $log -Value $message
+    try {
+        $lines = @(Get-Content $log -ErrorAction SilentlyContinue)
+        if ($lines.Count -gt $logMaxLines) {
+            $lines | Select-Object -Last $logKeepLines | Set-Content $log
+        }
+    } catch { }
+}
 
 if (-not (Test-Path (Join-Path $repo '.git'))) { return }
 
@@ -38,7 +51,7 @@ $stamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
 # Nothing to sync if the working tree is clean.
 $status = git -C $repo status --porcelain 2>&1
 if (-not $status) {
-    Add-Content $log "$stamp  end(reason=$reason)  clean -> skip"
+    Write-SyncLog "$stamp  end(reason=$reason)  clean -> skip"
     return
 }
 
@@ -47,7 +60,7 @@ $lastCommit = (git -C $repo log -1 --format=%ct 2>&1) -join ''
 if ($lastCommit -match '^\d+$') {
     $ageMin = ([DateTimeOffset]::UtcNow.ToUnixTimeSeconds() - [int64]$lastCommit) / 60
     if ($ageMin -lt $debounceMinutes) {
-        Add-Content $log ("$stamp  end(reason=$reason)  dirty, debounced ({0:N1}min < $debounceMinutes) -> skip" -f $ageMin)
+        Write-SyncLog ("$stamp  end(reason=$reason)  dirty, debounced ({0:N1}min < $debounceMinutes) -> skip" -f $ageMin)
         return
     }
 }
@@ -57,4 +70,4 @@ if ($lastCommit -match '^\d+$') {
 $null = git -C $repo add -A 2>&1
 $null = git -C $repo commit -m "Auto-sync: $stamp ($env:COMPUTERNAME) [reason=$reason]" 2>&1
 $null = git -C $repo push origin main 2>&1
-Add-Content $log "$stamp  end(reason=$reason)  committed + pushed"
+Write-SyncLog "$stamp  end(reason=$reason)  committed + pushed"
