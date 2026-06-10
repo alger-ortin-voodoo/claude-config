@@ -54,7 +54,7 @@ matches a trigger, **propose the delegation first** (building/planning happens i
 * **Commit prep — context-first exception:** when you already understand the changes from this session, you need not delegate. Small change set → draft commits on the main thread. Larger set → delegate but pass a session-context summary (files, purpose, suggested grouping + messages). Delegate for full from-scratch analysis only when there's no context to reuse.
 * **Skip delegation for:** one-line edits/typos/renames/comment tweaks; continuing a task this session already handed to you; pure exploration/questions; anything the user explicitly asked **you** to do; executing a clear pre-agreed plan with no design decisions left (main thread drives mechanical work).
 * **Default:** propose delegation in one short line rather than auto-spawning. Auto-spawn only when the user approved delegation this session, or a `feature-planner` plan names the implementer.
-* **Parallel reviews:** before any non-trivial commit, run `unity-code-reviewer` and (if hot paths/rendering changed) `performance-guardian` in parallel; report a punch list, then ask before applying fixes.
+* **Parallel reviews:** before any non-trivial commit, run `unity-code-reviewer` and (if hot paths/rendering changed) `performance-guardian` in parallel. **Reproduce each reviewer's full P0/P1/P2 punch-list verbatim for the user before doing anything else with it** — the desktop app does NOT surface subagent output to the user, so summarizing it or jumping straight to fixes hides the review. Show the table first, then ask before applying fixes.
 
 Implementation work (one-off edits, mid-session iterations) is driven by the main thread — rule
 enforcement lives here and in memory. There are no implementation agents.
