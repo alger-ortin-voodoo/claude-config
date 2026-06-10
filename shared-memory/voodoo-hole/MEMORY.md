@@ -3,6 +3,7 @@
 - [User Profile](user_profile.md) — Non-native English speaker, experienced Unity/C# dev, strong .NET conventions awareness
 - [Project: Main Branch](project_main_branch.md) — Real main is samba/develop (samba/main unmaintained); run `git remote set-head origin samba/develop` on fresh clones
 - [Feedback: claude-config auto-sync](feedback_claude_config_autosync.md) — The ~/.claude repo is exempt from the no-commit gate; commit & push config/memory changes freely (project repos still gated)
+- [Feedback: Desktop Auto mode](feedback_desktop_auto_mode.md) — Desktop gained native Auto mode (2026-06-10); rely on it, don't re-add blanket PowerShell(*)/Bash(*) allow rules
 - [Feedback: Code Style](feedback_code_style.md) — Key style preferences established over the Perks system sessions
 - [Feedback: Reuse over Duplication](feedback_reuse_over_duplication.md) — Grep for an existing class/view/helper and compose it before writing a parallel one; "stub" is no exemption
 - [Feedback: .editorconfig is style source of truth](feedback_editorconfig_source_of_truth.md) — Judge naming/formatting against .editorconfig, not neighboring code; public fields are PascalCase
