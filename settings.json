@@ -1,8 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git *)",
-      "PowerShell(*)"
+      "Bash(git *)"
     ],
     "defaultMode": "bypassPermissions"
   },
