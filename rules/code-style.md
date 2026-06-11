@@ -17,6 +17,20 @@
    * Async methods: Suffix async methods with `Async` following the .NET Task-based Asynchronous Pattern (TAP) convention (e.g. `RunExpiryDelayAsync`). Exception: event handlers (e.g. `OnApplicationPause`) are exempt.
    * Constants: Use PascalCase for `const` and `static readonly` fields, following .NET conventions (e.g. `PersistentDataKey`, not `PERSISTENT_DATA_KEY`).
 * **Comments:** Be verbose with comments, writing a brief line before every block of instructions explaining its purpose. As general rule, wherever you would put an empty line to separate blocks of logic, a comment explaining the next block is welcome. Always include an empty line before an inline comment, unless the previous line is an opening brace.
+   * **Exception — declarations that directly precede their block:** When one or more variable declarations exist solely to set up the immediately-following control-flow block (`for`, `foreach`, `while`, `if`, etc.), treat the declarations and the block as a unit — **no blank line between the last declaration and the block keyword**. The blank line (and the block comment, if any) goes *before* the declarations, not between them and the block.
+     ```csharp
+     // ❌ WRONG — blank line splits the declarations from the block they set up
+     List<Foo> items = new List<Foo>();
+     int[] indices = { 0, 0 };
+
+     foreach (...)
+
+     // ✅ RIGHT — declarations and block are a unit; blank line goes before the comment
+     // Process each item...
+     List<Foo> items = new List<Foo>();
+     int[] indices = { 0, 0 };
+     foreach (...)
+     ```
    * Category inline comments (the ones grouping members inside a region, e.g. `// Serialized Fields`, `// Public Properties`, `// External Dependencies`) must be followed **immediately** by the first declaration — **no blank line between the comment and the member it labels**. The blank line goes *before* the category comment to separate it from the previous group, not after. The category comment belongs to the group below it.
      ```csharp
      // ❌ WRONG — redundant blank line between the label and the member it groups

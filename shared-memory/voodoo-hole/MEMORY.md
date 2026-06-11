@@ -48,3 +48,4 @@
 - [Feedback: UI_DEVELOPMENT.md is a hard prerequisite](feedback_ui_development_prereq.md) — Read before any UI/Canvas code; localization rule (LeanLocalizationTMPText + .PhraseName) lives there, not in code-style.md; pass it to reviewers too
 - [Feedback: Numbered execution steps](feedback_numbered_execution_steps.md) — Sequential steps use numbers, not letters; letters read as alternative approaches
 - [Project: Mobile-only build targets](project_mobile_only_targets.md) — Editor errors under a Standalone build target are misconfigurations, not bugs; check reporter's build target first
+- [Feedback: No blank line between declarations and their block](feedback_blank_lines_declarations_blocks.md) — Declarations that set up a for/foreach/while/if are part of that block; no blank line before the keyword
