@@ -49,3 +49,4 @@
 - [Feedback: Numbered execution steps](feedback_numbered_execution_steps.md) — Sequential steps use numbers, not letters; letters read as alternative approaches
 - [Project: Mobile-only build targets](project_mobile_only_targets.md) — Editor errors under a Standalone build target are misconfigurations, not bugs; check reporter's build target first
 - [Feedback: No blank line between declarations and their block](feedback_blank_lines_declarations_blocks.md) — Declarations that set up a for/foreach/while/if are part of that block; no blank line before the keyword
+- [Feedback: Step large plans](feedback_step_large_plans.md) — Hand off big multi-subtask plans in stepped ~1-commit prompts (use next-steps Step mode), not one monolithic continuation prompt
