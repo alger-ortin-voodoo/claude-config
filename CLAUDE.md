@@ -13,6 +13,7 @@ imperative one-liners below are always in effect; read the matching file for ful
 | Write or edit any C# | `~/.claude/rules/code-style.md` |
 | Draft a commit message or apply reviewer findings | `~/.claude/rules/commits.md` |
 | Plan a new feature or sub-phase | `~/.claude/rules/feature-flow.md` |
+| Create or restyle a visual document (slides, HTML, diagrams, reports) | `~/.claude/rules/voodoo-brand-style.md` |
 
 ---
 
