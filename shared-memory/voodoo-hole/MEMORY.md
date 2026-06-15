@@ -52,4 +52,4 @@
 - [Feedback: Step large plans](feedback_step_large_plans.md) — Hand off big multi-subtask plans in stepped ~1-commit prompts (use next-steps Step mode), not one monolithic continuation prompt
 - [Feedback: Skip auto-QA on visual docs](feedback_skip_visual_qa.md) — Build + render once for the user to review; don't auto-spawn a fresh-eyes QA subagent (too slow, user checks faster)
 - [Project: Agentic deck (Voodoo)](project_agentic_deck_voodoo.md) — "Agentic Workflow" deck Voodoo re-skin: build script locations, output, role→color map
-- [Project: LiveEvent cheat base](project_liveevent_cheat_base.md) — Reusable CheatDebugPanelFoldout_LiveEvent base exists (on release/2.45); migrate HoleEscape & DailyMissions cheat panels to it
+- [Project: LiveEvent cheat base](project_liveevent_cheat_base.md) — All live-event cheat panels (Collections, HoleEscape, DailyMissions) share CheatDebugPanelFoldout_LiveEvent; extend it for new ones
