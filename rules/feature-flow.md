@@ -24,3 +24,13 @@ When a feature is **multiphase**, keep the master/initial planning session at th
 - **Why:** deep-planning every phase upfront wastes effort and drifts — earlier phases routinely produce the inputs that should shape later ones (e.g. a key/prefix histogram → table split; a validation spike → migration approach; an on-device test → asset config). Just-in-time per-phase planning stays accurate and focused.
 - **The deeper pass is itself a planning step** (Opus, `feature-planner`) and **expands that phase's own doc in place** — it must not bloat the master plan.
 - **`next-steps` enforces the gate:** before handing off implementation of a phase flagged "needs deeper planning," both the `/next-steps` skill and the *Post-Plan Next-Steps* inline spec in `CLAUDE.md` MUST prompt the user to run that deeper planning pass first (Opus) and emit a **planning** continuation prompt, not an implementation one. Phases marked ready-as-is proceed straight to build.
+
+## Keep tracker statuses synced with plan phases (STANDARD)
+
+When a plan's phases are clearly linked to tracker items (e.g. each phase has its own ClickUp subtask, with the task ID recorded in the phase-doc header), keep their status in sync **without being asked**:
+
+- **Start of a phase's implementation** → move its task to the list's in-progress status.
+- **Phase commits land** (after the user's commit approval) → move its task to the done/complete status, and flip that phase's **Status** in the indexer + phase doc to match.
+- Resolve the actual status names from the list (e.g. ClickUp `expand_statuses`) rather than assuming; **never mark a task done before its work is committed** (the commit safety gate still applies).
+
+This is a behavioral standing rule for the session driving the work — it can't be a `settings.json` hook (the phase→task mapping needs judgment + an MCP call), so record the phase↔task mapping in the plan (phase-doc headers carry their task ID) and keep both sides current as you go.

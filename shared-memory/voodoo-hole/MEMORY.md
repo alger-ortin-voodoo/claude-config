@@ -54,3 +54,4 @@
 - [Project: Agentic deck (Voodoo)](project_agentic_deck_voodoo.md) — "Agentic Workflow" deck Voodoo re-skin: build script locations, output, role→color map
 - [Project: LiveEvent cheat base](project_liveevent_cheat_base.md) — All live-event cheat panels (Collections, HoleEscape, DailyMissions) share CheatDebugPanelFoldout_LiveEvent; extend it for new ones
 - [Feedback: Multiphase plan depth](feedback_multiphase_plan_depth.md) — Outline phases in the master plan and flag which need deeper planning; next-steps gates flagged phases (Opus planning prompt) before implementation
+- [Feedback: Tracker status sync](feedback_tracker_status_sync.md) — Keep ClickUp task status synced with plan-phase progress (in-progress on start, done on commit) without being asked
