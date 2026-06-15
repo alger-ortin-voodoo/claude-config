@@ -120,10 +120,17 @@ Discussion-only turns (no project-file `Edit`/`Write`) are exempt.
    compact remaining-steps roadmap once (one line per step, model/session, next step marked) and
    scope the prompt below to the next ≈1-commit chunk, ending with "run `/next-steps` again after
    this step is committed".
-4. The continuation prompt in a fenced code block — self-contained (feature, plan doc path, step,
+4. **Deeper-planning gate (multiphase plans).** If the next step is implementing a phase the plan
+   flags as **needing a deeper planning pass before implementation** (master plans outline phases
+   and mark which need this — see `rules/feature-flow.md`), and that pass isn't done yet: recommend
+   **Opus**, put the deeper plan first, and make the continuation prompt a **planning prompt** (via
+   `feature-planner`, expanding *that phase's own doc in place*) — NOT an implementation prompt. The
+   implementation prompt comes from the *next* run, after that phase plan is approved. Phases marked
+   ready-as-is skip this gate.
+5. The continuation prompt in a fenced code block — self-contained (feature, plan doc path, step,
    key constraints, never-auto-commit reminder) whenever the recommendation is a fresh or cleared
    session.
-5. ONLY after the prompt is printed: copy it to the clipboard via PowerShell
+6. ONLY after the prompt is printed: copy it to the clipboard via PowerShell
    `Set-Clipboard -Value @'…'@` (single-quoted here-string), then end with `📋 Copied to clipboard.`
 
 * **Scope guard:** fires once per **approved** plan only. Never produce recommendations before or

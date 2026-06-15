@@ -53,6 +53,12 @@ End with a one-line bottom-line recommendation (e.g. "Stay on Opus, continue thi
   - End with the loop instruction: *after this step is committed, run `/next-steps` again to get the next step's prompt.*
   - In step mode, default the Session axis to **`/clear` → its own Sonnet session per step** (the model switch discards the warm cache regardless, and a fresh window preserves 200K headroom + keeps each diff small enough to review).
 
+**Deeper-planning gate (multiphase features).** Before writing any *implementation* continuation prompt, check whether the next step is a phase that the plan flags as **needing a deeper planning pass before implementation** (master plans are expected to outline phases and mark which need this — see `rules/feature-flow.md`). If it is flagged and that pass hasn't been done yet:
+- Recommend **Opus** (this is planning, not mechanical build) and that the deeper plan happen **before** any implementation — state it plainly in the bottom line.
+- Make the continuation prompt a **planning prompt**: instruct a `feature-planner` pass that **expands that phase's own doc in place**, naming the phase, its phase-doc path, and the master plan. Do NOT emit an implementation prompt for a flagged phase.
+- Note that after that phase plan is approved, the *next* `/next-steps` run yields the implementation prompt.
+Phases marked ready-as-is (or already deepened) skip this gate and use the normal implementation prompt below.
+
 **Then add a "Continuation prompt" line.** Provide a ready-to-paste prompt the user can use to kick off the next step. Tailor it to the recommendation:
 - If continuing this session: a short prompt that names the next step (e.g. "Implement step 3 of the plan — the reward-claim flow").
 - If starting fresh / `/clear` / a new session, or delegating to an agent: make it **self-contained** — name the feature, the plan doc path, the current step, and any decisions/constraints the new context won't have. The user should be able to paste it cold and have the work resume correctly.
