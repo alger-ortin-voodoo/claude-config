@@ -38,11 +38,11 @@ End with a one-line bottom-line recommendation (e.g. "Stay on Opus, continue thi
 
 - **When to engage (BOTH must hold):**
   1. The recommended next work is **executing a plan doc** — a `Docs/**/*plan*.md` with discrete steps — not a one-off edit, a question, or a pure review/commit pass.
-  2. The **remaining** work is big. Engage if *any* of: ≥3 atomic commits still unchecked, multiple new files/scripts to author, or a single chunk large enough to strain a fresh Sonnet 200K session. If none hold (small plan, 1–2 trivial commits), **skip step mode** and use the normal continuation prompt below unchanged.
+  2. The **remaining** work is big. Engage if *any* of: ≥3 session-sized chunks of work remain, multiple new files/scripts to author, or any single chunk large enough to strain a fresh Sonnet 200K session (risking mid-build compaction). If none hold (small plan, one quick chunk), **skip step mode** and use the normal continuation prompt below unchanged.
 
 - **Find the next step.** Read the plan doc. Steps are marked `[DONE]` (finished), `[IMPL]`/unmarked (pending). Sub-phases (e.g. `2F.2`) contain Parts (`A`/`B`/`C`/`D`) that map to atomic commits. The next step is the first pending unit at the granularity below.
 
-- **Granularity — judge the chunk size yourself.** Group remaining work so each session is one reviewable chunk, targeting ≈1 commit (occasionally 2 genuinely small, related commits). **Split a large sub-phase into its Parts/commits** — never emit the whole sub-phase when it spans several substantial commits.
+- **Granularity — judge the chunk size yourself.** Group remaining work so **each chunk fits one fresh Sonnet session (~150K usable) without compacting** — estimate its context load (reference files + edits + tool output). How many commits a chunk needs is the **implementer's** call; do not slice by commit count. **Split a large sub-phase into session-sized chunks** — never emit a chunk that would force mid-build compaction.
 
 - **Print the remaining-steps roadmap once.** A compact list (bullets or a small table) of every remaining step in order, each with a short scope label and the recommended model/session for that step. Mark which one is **next**. This is the only verbose part — keep it scannable, don't re-explain per step.
 

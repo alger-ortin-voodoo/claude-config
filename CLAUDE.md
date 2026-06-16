@@ -116,10 +116,12 @@ Discussion-only turns (no project-file `Edit`/`Write`) are exempt.
      discards the warm cache anyway; fresh 200K headroom beats inherited bloat).
    * **Agents** — delegate per the *Agent Routing* table only when handoff overhead pays off.
 2. A one-line bottom line (e.g. "`/clear` → Sonnet, main thread").
-3. **Step mode** — only when the next work executes a plan doc with ≥3 commits remaining: print a
-   compact remaining-steps roadmap once (one line per step, model/session, next step marked) and
-   scope the prompt below to the next ≈1-commit chunk, ending with "run `/next-steps` again after
-   this step is committed".
+3. **Step mode** — only when the next work executes a plan doc whose remaining work won't fit one
+   Sonnet session (≥3 session-sized chunks left, or any chunk that would strain a fresh 200K): print
+   a compact remaining-chunks roadmap once (one line per chunk, model/session, next marked) and
+   scope the prompt below to the **next single-session chunk**, ending with "run `/next-steps` again
+   after this chunk is committed". Size by session-sized chunks, not commit count — how many commits
+   a chunk takes is the implementer's call.
 4. **Deeper-planning gate (multiphase plans).** If the next step is implementing a phase the plan
    flags as **needing a deeper planning pass before implementation** (master plans outline phases
    and mark which need this — see `rules/feature-flow.md`), and that pass isn't done yet: recommend

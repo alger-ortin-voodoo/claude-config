@@ -17,9 +17,19 @@ Generic phase flow (adapt per feature):
 - This complements **Agent Routing** (which answers *"which agent for this trigger?"*); this answers *"what's the order of operations for the whole feature?"*.
 - For a fully-planned, mechanical step the main thread may drive end-to-end; reserve `plan-implementer` for executing a complete multi-step feature-planner plan.
 
+## Size work by Sonnet session, not by commit count (STANDARD)
+
+The unit of a plan step / sub-phase is an **atomic, related chunk of work that fits in a single Sonnet implementation session without forcing context compaction.** Sonnet runs at 200K (never the 1M beta); after the plan, `CLAUDE.md`, memory, reference files, tool overhead, and an output budget, realistic working room is ~150K. Mid-implementation compaction is slow and lossy — sizing to the session is what prevents it.
+
+- **Plan in chunks, not commits.** Do NOT prescribe a commit count ("one atomic commit", "two commits"). Frame each step as a session-sized chunk that ends at a **committable** state (compiles + works); **how many commits it takes is the implementer's call** at execution time.
+- **Estimate each chunk's context load** — reference files to read + files to edit + expected tool output — and split anything that would risk compaction. A single large file (e.g. a 500+ line class) gets its own chunk.
+- **List the reference files each chunk needs**, so the executor can pre-budget context. Avoid chunks that vaguely require "understanding the whole subsystem".
+- **Use a scripted/mechanical pass for bulk edits** (e.g. a token-rename across dozens of files) instead of file-by-file `Read`/`Edit` — the file-by-file approach is a classic context-blower.
+- Master/per-phase skeletons outline **work chunks**, not commit lists. `next-steps` hands off **one chunk per session** (see the *Post-Plan Next-Steps* spec in `CLAUDE.md` and the `/next-steps` command).
+
 ## Multiphase features — plan shallow, flag deep (STANDARD)
 
-When a feature is **multiphase**, keep the master/initial planning session at the **outline level for the individual phases** — do NOT deep-dive each phase there. Produce the master plan + per-phase skeletons (goal, atomic-commit outline, files, done-criteria, risks), and then **CLEARLY classify each phase as either "ready to implement as-is" or "needs a deeper planning pass before implementation"** (with a one-line why). That classification is a **required output** of the master plan, not optional.
+When a feature is **multiphase**, keep the master/initial planning session at the **outline level for the individual phases** — do NOT deep-dive each phase there. Produce the master plan + per-phase skeletons (goal, session-sized work-chunk outline, files, done-criteria, risks), and then **CLEARLY classify each phase as either "ready to implement as-is" or "needs a deeper planning pass before implementation"** (with a one-line why). That classification is a **required output** of the master plan, not optional.
 
 - **Why:** deep-planning every phase upfront wastes effort and drifts — earlier phases routinely produce the inputs that should shape later ones (e.g. a key/prefix histogram → table split; a validation spike → migration approach; an on-device test → asset config). Just-in-time per-phase planning stays accurate and focused.
 - **The deeper pass is itself a planning step** (Opus, `feature-planner`) and **expands that phase's own doc in place** — it must not bloat the master plan.
