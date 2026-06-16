@@ -49,7 +49,7 @@
 - [Feedback: Numbered execution steps](feedback_numbered_execution_steps.md) — Sequential steps use numbers, not letters; letters read as alternative approaches
 - [Project: Mobile-only build targets](project_mobile_only_targets.md) — Editor errors under a Standalone build target are misconfigurations, not bugs; check reporter's build target first
 - [Feedback: No blank line between declarations and their block](feedback_blank_lines_declarations_blocks.md) — Declarations that set up a for/foreach/while/if are part of that block; no blank line before the keyword
-- [Feedback: Step large plans](feedback_step_large_plans.md) — Hand off big multi-subtask plans in stepped ~1-commit prompts (use next-steps Step mode), not one monolithic continuation prompt
+- [Feedback: Step large plans](feedback_step_large_plans.md) — Split plans into session-sized chunks (fit one Sonnet 200K session, no compaction); chunk is the unit, commit count is the implementer's call — don't frame plans as commits
 - [Feedback: Skip auto-QA on visual docs](feedback_skip_visual_qa.md) — Build + render once for the user to review; don't auto-spawn a fresh-eyes QA subagent (too slow, user checks faster)
 - [Project: Agentic deck (Voodoo)](project_agentic_deck_voodoo.md) — "Agentic Workflow" deck Voodoo re-skin: build script locations, output, role→color map
 - [Project: LiveEvent cheat base](project_liveevent_cheat_base.md) — All live-event cheat panels (Collections, HoleEscape, DailyMissions) share CheatDebugPanelFoldout_LiveEvent; extend it for new ones

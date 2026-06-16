@@ -50,7 +50,7 @@ End with a one-line bottom-line recommendation (e.g. "Stay on Opus, continue thi
   - Name the plan doc path, the feature, and the specific step (e.g. "Part B — migrate `ContinueOfferScreen` onto the paginated base").
   - Be self-contained for a cold, freshly `/clear`'d Sonnet context (each step gets its own session — see Session axis): carry only the decisions/constraints/files *that step* needs.
   - **Bound the scope explicitly:** implement *only this step*, do **not** proceed to later steps, and stop after the step is implemented + reviewed for the user's commit approval (the commit safety gate still applies — never auto-commit).
-  - End with the loop instruction: *after this step is committed, run `/next-steps` again to get the next step's prompt.*
+  - End with the loop instruction: *after this chunk is committed (however many commits it took), run `/next-steps` again to get the next chunk's prompt.*
   - In step mode, default the Session axis to **`/clear` → its own Sonnet session per step** (the model switch discards the warm cache regardless, and a fresh window preserves 200K headroom + keeps each diff small enough to review).
 
 **Deeper-planning gate (multiphase features).** Before writing any *implementation* continuation prompt, check whether the next step is a phase that the plan flags as **needing a deeper planning pass before implementation** (master plans are expected to outline phases and mark which need this — see `rules/feature-flow.md`). If it is flagged and that pass hasn't been done yet:
