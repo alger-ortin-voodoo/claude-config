@@ -35,6 +35,7 @@
 - [Feedback: Skip agents for clear plans](feedback_skip_agents_for_clear_plans.md) — No implementation agents exist; main thread drives all implementation. Delegate only for planning, review, or debugging.
 - [Feedback: Reviewer null-safety nuance](feedback_reviewer_null_safety_nuance.md) — The `?.` / `??` rule is Unity-Object-only; plain C# objects are fine. Verify type before flagging.
 - [Feedback: No Unity Reimport All](feedback_no_unity_reimport_all.md) — NEVER trigger Assets/Reimport All. On refresh_assets timeout, STOP and report — don't escalate.
+- [Feedback: Unity MCP unreliable](feedback_unity_mcp_unreliable.md) — Bridge is broken & deprecated; avoid it, NEVER retry on connection failure, defer Editor checks (compile/Play Mode) to the user
 - [Feedback: Debug group in FIELDS AND PROPERTIES](feedback_region_debug_fields.md) — `// Debug` sub-category inside FIELDS AND PROPERTIES is accepted style; do not flag it.
 - [Feedback: No constants for single-use editor literals](feedback_editor_literal_no_const.md) — strings, numbers, AND colors in Editor-only code stay inline unless reused at 2+ sites; "feels semantic" is not grounds to extract
 - [Feedback: IronSource LevelPlayVersions.json](feedback_ironsource_versions_file.md) — Auto-modified by VoodooSauce SDK; never commit this file
