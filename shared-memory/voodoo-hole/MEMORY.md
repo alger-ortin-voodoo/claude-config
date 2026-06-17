@@ -57,3 +57,4 @@
 - [Feedback: Multiphase plan depth](feedback_multiphase_plan_depth.md) — Outline phases in the master plan and flag which need deeper planning; next-steps gates flagged phases (Opus planning prompt) before implementation
 - [Feedback: Tracker status sync](feedback_tracker_status_sync.md) — Keep ClickUp task status synced with plan-phase progress (in-progress on start, done on commit) without being asked
 - [Feedback: Commit-preparer delegation](feedback_commit_preparer_delegation.md) — Draft groupings on the main thread when session context is available; one agent call for execution only. Exclude parallel-session staged files explicitly.
+- [Feedback: Ask for known context](feedback_ask_known_context.md) — When the user likely knows the answer (intent of a change, whether a field was assigned), ask before reconstructing it with greps/diffs
