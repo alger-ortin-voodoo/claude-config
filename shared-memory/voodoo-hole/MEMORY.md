@@ -59,3 +59,4 @@
 - [Feedback: Commit-preparer delegation](feedback_commit_preparer_delegation.md) — Draft groupings on the main thread when session context is available; one agent call for execution only. Exclude parallel-session staged files explicitly.
 - [Feedback: Ask for known context](feedback_ask_known_context.md) — When the user likely knows the answer (intent of a change, whether a field was assigned), ask before reconstructing it with greps/diffs
 - [Feedback: HTML plan exports](feedback_html_plan_exports.md) — HTML exports under Docs/ are personal reference files; never stage or commit them, no need to ask
+- [Project: Localization settings refactor](project_localization_settings_refactor.md) — Phase 6 tools duplicate SpreadsheetId/ProviderAssetPath/TablesDir; settings SO design pending Chunk 2 session
