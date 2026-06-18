@@ -1,21 +1,20 @@
 ---
 name: project-localization-settings-refactor
-description: Hardcoded paths/IDs in the Phase 6 localization tools need a settings SO — refactor pending on Chunk 2 design
+description: "Phase 6 localization tooling — current chunk status and what's pending"
 metadata: 
   node_type: memory
   type: project
-  originSessionId: c2fe4b14-dabb-4db0-82b7-08eee0ba2448
+  originSessionId: 57b31aed-54e4-4d72-ab90-3994901b0879
 ---
 
-The Phase 6 localization Editor tools duplicate several hardcoded values across files:
+Phase 6 Chunk 4 committed (424364ca8e, 2026-06-18): `LocalizationToolingSettings` SO created, all four Editor tools (`LocalizationSheetBootstrap`, `LocalizationStructureSync`, `LocalizationValidation`, `LeanToUnityImporter`) retrofitted to read from it, `LocalizationEditorConstants` deleted.
 
-- `SpreadsheetId = "1nbHhaCw8E0NmfhaxJcKwF4SEjRvFo7jH7VBaB8hZRow"` — in `LocalizationSheetBootstrap.cs` AND `LocalizationStructureSync.cs`
-- `ProviderAssetPath = "Assets/ScriptableObjects/ServiceSettings/Localization/LocalizationSheetsServiceProvider.asset"` — in `LocalizationSheetBootstrap.cs` AND `LocalizationStructureSync.cs`
-- `TablesDir = "Assets/ScriptableObjects/ServiceSettings/Localization/Tables"` — in `LocalizationStructureSync.cs` (and implicitly in Bootstrap's collection paths)
-- Report directory path — repeated across multiple tools
+**Why:** D13 decision — centralize all duplicated hardcoded config (spreadsheet ID, tables root path, reports folder, excluded collection name) into a single Editor-only SO found by type.
 
-**Why:** User flagged this as a frustrating pattern after Chunk 3a landed. A settings ScriptableObject should centralize all of these.
+**How to apply:** Next session is Chunk 3b (subfolder ownership + normalize flat tables into per-collection subfolders + cross-collection dup-key lint + `RemoveMissingPulledKeys` cutover flip). Depends on Chunk 4 being committed (done).
 
-**How to apply:** Wait for the Chunk 2 session (`LocalizationValidation.cs`) to land on a settings object design, then do a single refactor pass across `LocalizationSheetBootstrap`, `LocalizationSheetSync`, and `LocalizationStructureSync` to consume it. Do NOT design a parallel settings shape — coordinate with whatever Chunk 2 decides.
+**Validations confirmed (2026-06-18):** Import Lean Dry Run (EN diffs = 0), Sync Structure (zero structural changes), Validate Missing Keys — all passed. `LocalizationToolingSettings.asset` populated and in the project. Chunk 4 fully done.
 
-**Status as of 2026-06-18:** Under discussion in the Chunk 2 implementation session. Refactor deferred until that design is confirmed.
+**Next:** Chunk 3b — subfolder ownership, normalize flat tables into per-collection subfolders, cross-collection dup-key lint, `RemoveMissingPulledKeys` false→true cutover flip.
+
+Plan doc: `Docs/UI/Systems/Localization/Phases/unity_localization_migration_6_tooling_and_sheet_plan.md`
