@@ -7,14 +7,14 @@ metadata:
   originSessionId: 57b31aed-54e4-4d72-ab90-3994901b0879
 ---
 
-Phase 6 Chunk 4 committed (424364ca8e, 2026-06-18): `LocalizationToolingSettings` SO created, all four Editor tools (`LocalizationSheetBootstrap`, `LocalizationStructureSync`, `LocalizationValidation`, `LeanToUnityImporter`) retrofitted to read from it, `LocalizationEditorConstants` deleted.
+Phase 6 Chunks 1, 2, 3a, 4, 5 all committed (2026-06-18). Only **Chunk 3b** remains.
 
-**Why:** D13 decision — centralize all duplicated hardcoded config (spreadsheet ID, tables root path, reports folder, excluded collection name) into a single Editor-only SO found by type.
+**Chunk 5 added (5dd8c2fe74, 2026-06-18):** `KeyColumnNoNote` subclass suppresses inert numeric Key ID cell notes from Google Sheets sync tabs (D14 decision). `PushFields.ValueAndNote` kept so push clears existing notes. Both `ConfigureExtension` paths updated; `MigrateKeyColumnsToNoNote` one-shot menu item added; migration run + Push All confirmed.
 
-**How to apply:** Next session is Chunk 3b (subfolder ownership + normalize flat tables into per-collection subfolders + cross-collection dup-key lint + `RemoveMissingPulledKeys` cutover flip). Depends on Chunk 4 being committed (done).
+**Why:** Project is string-keyed (`LocalizationKeyResolver` resolves by string, never by numeric ID); the stock `KeyColumn` note was pure editor noise.
 
-**Validations confirmed (2026-06-18):** Import Lean Dry Run (EN diffs = 0), Sync Structure (zero structural changes), Validate Missing Keys — all passed. `LocalizationToolingSettings.asset` populated and in the project. Chunk 4 fully done.
+**How to apply:** Next session is Chunk 3b — the only remaining Phase 6 work. Continuation prompt is in the clipboard from the last session (see `/next-steps` output).
 
-**Next:** Chunk 3b — subfolder ownership, normalize flat tables into per-collection subfolders, cross-collection dup-key lint, `RemoveMissingPulledKeys` false→true cutover flip.
+**Chunk 3b scope:** subfolder ownership (normalize flat tables into per-collection subfolders via `AssetDatabase.MoveAsset`), cross-collection duplicate-key lint in `LocalizationValidation`, `RemoveMissingPulledKeys` false→true cutover flip menu item. Touches `LocalizationStructureSync.cs` and `LocalizationValidation.cs`. Pause after normalize for user to eyeball subfolders + Addressables in the Editor.
 
 Plan doc: `Docs/UI/Systems/Localization/Phases/unity_localization_migration_6_tooling_and_sheet_plan.md`
