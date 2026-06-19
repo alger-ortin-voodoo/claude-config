@@ -1,6 +1,6 @@
 ---
 name: reference-localization-notion-docs
-description: Notion page URLs for the published Localization team docs (main TDD + 6 subpages) and where the local drafts live.
+description: Notion page URLs for the published Localization team docs (main TDD + 6 subpages); Notion is the source of truth (local drafts were removed).
 metadata: 
   node_type: memory
   type: reference
@@ -18,6 +18,6 @@ The Localization Tech Doc in Notion was reimagined for the Unity Localization mi
 - **Font replacement & memory:** https://app.notion.com/p/384a0b481db4817c9899eb11094ab7b7
 - **Tech Assessment (pre-existing child, preserved):** https://app.notion.com/p/372a0b481db481d2bcd3c5b70b5d56b5
 
-Local source-of-truth drafts (Notion staging, **uncommitted** personal reference — never stage/commit, like [[feedback_html_plan_exports]]): `Docs/UI/Systems/Localization/Notion/` (one `.md` per page + `screenshot_checklist.html`, an interactive tracker for the ~18 screenshots the user still has to take). Edit the draft AND the Notion page together to keep them in sync.
+**Notion is the source of truth** — the local `.md` drafts were removed (2026-06-19); iterate **directly in the Notion pages** above (fetch/update via the URLs), no local markdown mirror. The only local file left is `Docs/UI/Systems/Localization/Notion/screenshot_checklist.html` — an interactive tracker for the screenshots still to be added (personal reference, never commit, like [[feedback_html_plan_exports]]).
 
 Related: [[project_localization_system_agnostic]], [[reference_voodootune_cache_refresh]] (the `EnabledLanguages` / `LanguageSelectionEnabled` remote-config edits need Publish + Cache Production Data). Pseudo-localization was descoped (not implemented); the docs reflect that.
