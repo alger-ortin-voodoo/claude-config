@@ -62,3 +62,4 @@
 - [Project: Localization settings refactor](project_localization_settings_refactor.md) — Phase 6 tools duplicate SpreadsheetId/ProviderAssetPath/TablesDir; settings SO design pending Chunk 2 session
 - [Project: Localization system is game-agnostic](project_localization_system_agnostic.md) — Designed reusable across all Voodoo projects; SO-driven config, no hardcoded paths, permanent code under Voodoo.Localization namespace
 - [Reference: Localization Notion docs](reference_localization_notion_docs.md) — Published team TDD: main page + 6 subpage URLs; local drafts (uncommitted) in Docs/UI/Systems/Localization/Notion/
+- [Project: Localization authoring is Pull-only](project_localization_authoring_pull_only.md) — Sheets is the single source of truth; nothing pushes to Sheets; Push/Sync-Structure tools are transitional and going away
