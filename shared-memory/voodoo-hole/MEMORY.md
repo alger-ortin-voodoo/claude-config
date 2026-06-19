@@ -61,3 +61,4 @@
 - [Feedback: HTML plan exports](feedback_html_plan_exports.md) — HTML exports under Docs/ are personal reference files; never stage or commit them, no need to ask
 - [Project: Localization settings refactor](project_localization_settings_refactor.md) — Phase 6 tools duplicate SpreadsheetId/ProviderAssetPath/TablesDir; settings SO design pending Chunk 2 session
 - [Project: Localization system is game-agnostic](project_localization_system_agnostic.md) — Designed reusable across all Voodoo projects; SO-driven config, no hardcoded paths, permanent code under Voodoo.Localization namespace
+- [Reference: Localization Notion docs](reference_localization_notion_docs.md) — Published team TDD: main page + 6 subpage URLs; local drafts (uncommitted) in Docs/UI/Systems/Localization/Notion/
