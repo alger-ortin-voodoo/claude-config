@@ -15,6 +15,6 @@ The transitional/one-shot/push tooling was **removed 2026-06-20** (this session)
 
 **How to apply:** When advising on the loca workflow or drafting team comms, present Pull as the only sync direction. Never recommend or re-add Push. `Sync Structure` / `Sync Structure + Content` are admin tools (can prune tables), not routine team-facing ones.
 
-Note: `ExcludeFirstTabAsLeanSource` (in `LocalizationToolingSettings`) still guards the retired Lean tab by **position (index 0)** — it must stay the first tab. Deleting that tab safely requires flipping the setting to `false` first (see [[reference-localization-notion-docs]] / the migration caveats).
+Note: tab exclusion from the structural sync is **keyword-based** (changed 2026-06-20, commit `3eba43bfa3`) — `LocalizationToolingSettings.ExcludedTabKeywords` (default `EXCLUDE`, case-insensitive substring match on the tab name). Tabs can be reordered freely and multiple tabs excluded (instructions, retired Lean, etc.). To retire/exclude a tab, **put a keyword in its name** — otherwise the next `Sync Structure` adopts it as a runtime collection. (This replaced the old `ExcludeFirstTabAsLeanSource` index-0 guard.) See [[reference-localization-notion-docs]] / the migration caveats.
 
 Related: [[reference_localization_notion_docs]], [[project_localization_system_agnostic]].
