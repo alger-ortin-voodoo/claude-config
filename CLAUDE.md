@@ -13,6 +13,7 @@ imperative one-liners below are always in effect; read the matching file for ful
 | Write or edit any C# | `~/.claude/rules/code-style.md` |
 | Draft a commit message or apply reviewer findings | `~/.claude/rules/commits.md` |
 | Plan a new feature or sub-phase | `~/.claude/rules/feature-flow.md` |
+| Create or restyle a visual document (slides, HTML, diagrams, reports) | `~/.claude/rules/voodoo-brand-style.md` |
 
 ---
 
@@ -54,7 +55,7 @@ matches a trigger, **propose the delegation first** (building/planning happens i
 * **Commit prep — context-first exception:** when you already understand the changes from this session, you need not delegate. Small change set → draft commits on the main thread. Larger set → delegate but pass a session-context summary (files, purpose, suggested grouping + messages). Delegate for full from-scratch analysis only when there's no context to reuse.
 * **Skip delegation for:** one-line edits/typos/renames/comment tweaks; continuing a task this session already handed to you; pure exploration/questions; anything the user explicitly asked **you** to do; executing a clear pre-agreed plan with no design decisions left (main thread drives mechanical work).
 * **Default:** propose delegation in one short line rather than auto-spawning. Auto-spawn only when the user approved delegation this session, or a `feature-planner` plan names the implementer.
-* **Parallel reviews:** before any non-trivial commit, run `unity-code-reviewer` and (if hot paths/rendering changed) `performance-guardian` in parallel; report a punch list, then ask before applying fixes.
+* **Parallel reviews:** before any non-trivial commit, run `unity-code-reviewer` and (if hot paths/rendering changed) `performance-guardian` in parallel. **Reproduce each reviewer's full P0/P1/P2 punch-list verbatim for the user before doing anything else with it** — the desktop app does NOT surface subagent output to the user, so summarizing it or jumping straight to fixes hides the review. Show the table first, then ask before applying fixes.
 
 Implementation work (one-off edits, mid-session iterations) is driven by the main thread — rule
 enforcement lives here and in memory. There are no implementation agents.
@@ -130,15 +131,24 @@ feature/phase/substep are inferable from the plan doc. On-demand generator: `/na
      discards the warm cache anyway; fresh 200K headroom beats inherited bloat).
    * **Agents** — delegate per the *Agent Routing* table only when handoff overhead pays off.
 2. A one-line bottom line (e.g. "`/clear` → Sonnet, main thread").
-3. **Step mode** — only when the next work executes a plan doc with ≥3 commits remaining: print a
-   compact remaining-steps roadmap once (one line per step, model/session, next step marked) and
-   scope the prompt below to the next ≈1-commit chunk, ending with "run `/next-steps` again after
-   this step is committed".
-4. The continuation prompt in a fenced code block — self-contained (feature, plan doc path, step,
+3. **Step mode** — only when the next work executes a plan doc whose remaining work won't fit one
+   Sonnet session (≥3 session-sized chunks left, or any chunk that would strain a fresh 200K): print
+   a compact remaining-chunks roadmap once (one line per chunk, model/session, next marked) and
+   scope the prompt below to the **next single-session chunk**, ending with "run `/next-steps` again
+   after this chunk is committed". Size by session-sized chunks, not commit count — how many commits
+   a chunk takes is the implementer's call.
+4. **Deeper-planning gate (multiphase plans).** If the next step is implementing a phase the plan
+   flags as **needing a deeper planning pass before implementation** (master plans outline phases
+   and mark which need this — see `rules/feature-flow.md`), and that pass isn't done yet: recommend
+   **Opus**, put the deeper plan first, and make the continuation prompt a **planning prompt** (via
+   `feature-planner`, expanding *that phase's own doc in place*) — NOT an implementation prompt. The
+   implementation prompt comes from the *next* run, after that phase plan is approved. Phases marked
+   ready-as-is skip this gate.
+5. The continuation prompt in a fenced code block — self-contained (feature, plan doc path, step,
    key constraints, never-auto-commit reminder) whenever the recommendation is a fresh or cleared
    session. For phased-plan substeps, make its **first line** `Session name: {feature} | {phase}.{substep} {name}`
    (`| Plan` suffix for a planning session), per the *Session Naming* convention above.
-5. **Clipboard — off by default.** Do NOT copy the prompt to the clipboard automatically; under
+6. **Clipboard — off by default.** Do NOT copy the prompt to the clipboard automatically; under
    Claude Desktop / web (the normal case) just end after the fenced prompt. Copy it ONLY if the
    user explicitly asks, or you already know this is a CLI-terminal session — and even then never
    run a command *solely* to detect the surface. When you do copy: ONLY after the prompt is

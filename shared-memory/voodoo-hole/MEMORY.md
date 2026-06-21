@@ -1,6 +1,9 @@
 # Memory Index
 
 - [User Profile](user_profile.md) — Non-native English speaker, experienced Unity/C# dev, strong .NET conventions awareness
+- [Project: Main Branch](project_main_branch.md) — Real main is samba/develop (samba/main unmaintained); run `git remote set-head origin samba/develop` on fresh clones
+- [Feedback: claude-config auto-sync](feedback_claude_config_autosync.md) — The ~/.claude repo is exempt from the no-commit gate; commit & push config/memory changes freely (project repos still gated)
+- [Feedback: Desktop Auto mode](feedback_desktop_auto_mode.md) — Desktop gained native Auto mode (2026-06-10); rely on it, don't re-add blanket PowerShell(*)/Bash(*) allow rules
 - [Feedback: Code Style](feedback_code_style.md) — Key style preferences established over the Perks system sessions
 - [Feedback: Reuse over Duplication](feedback_reuse_over_duplication.md) — Grep for an existing class/view/helper and compose it before writing a parallel one; "stub" is no exemption
 - [Feedback: .editorconfig is style source of truth](feedback_editorconfig_source_of_truth.md) — Judge naming/formatting against .editorconfig, not neighboring code; public fields are PascalCase
@@ -27,9 +30,12 @@
 - [Feedback: ClickUp comment formatting](feedback_clickup_comment_formatting.md) — Comments via MCP don't render markdown bold/headers; only inline `code` works
 - [User: Three project copies share memory](user_project_copies.md) — Hole.io / _Release / _Live are the same project; memory is junctioned to a canonical store synced via the private claude-config repo (desktop+laptop); sessions are not shared
 - [Reference: Collections Notion GDD sync](reference_collections_notion_gdd.md) — Two Notion code blocks mirror `EconomyConfig.CollectionsRewards` and the `MilestonesData` example; keep them updated when those code defaults change
+- [Reference: Live Ops Notion system doc](reference_liveops_notion_system.md) — Generic Live Ops tech-doc page; keep its LiveEventConfig parameter table synced when base config fields change (e.g. AcknowledgeEventFinished.Auto)
+- [Reference: VoodooTune cache refresh](reference_voodootune_cache_refresh.md) — Dashboard config edits need Publish + "Cache Production Data" menu; Editor/build read a prebuilt asset, not live
 - [Feedback: Skip agents for clear plans](feedback_skip_agents_for_clear_plans.md) — No implementation agents exist; main thread drives all implementation. Delegate only for planning, review, or debugging.
 - [Feedback: Reviewer null-safety nuance](feedback_reviewer_null_safety_nuance.md) — The `?.` / `??` rule is Unity-Object-only; plain C# objects are fine. Verify type before flagging.
 - [Feedback: No Unity Reimport All](feedback_no_unity_reimport_all.md) — NEVER trigger Assets/Reimport All. On refresh_assets timeout, STOP and report — don't escalate.
+- [Feedback: Unity MCP unreliable](feedback_unity_mcp_unreliable.md) — Bridge is broken & deprecated; avoid it, NEVER retry on connection failure, defer Editor checks (compile/Play Mode) to the user
 - [Feedback: Debug group in FIELDS AND PROPERTIES](feedback_region_debug_fields.md) — `// Debug` sub-category inside FIELDS AND PROPERTIES is accepted style; do not flag it.
 - [Feedback: No constants for single-use editor literals](feedback_editor_literal_no_const.md) — strings, numbers, AND colors in Editor-only code stay inline unless reused at 2+ sites; "feels semantic" is not grounds to extract
 - [Feedback: IronSource LevelPlayVersions.json](feedback_ironsource_versions_file.md) — Auto-modified by VoodooSauce SDK; never commit this file
@@ -43,3 +49,17 @@
 - [Feedback: UI_DEVELOPMENT.md is a hard prerequisite](feedback_ui_development_prereq.md) — Read before any UI/Canvas code; localization rule (LeanLocalizationTMPText + .PhraseName) lives there, not in code-style.md; pass it to reviewers too
 - [Feedback: Numbered execution steps](feedback_numbered_execution_steps.md) — Sequential steps use numbers, not letters; letters read as alternative approaches
 - [Project: Mobile-only build targets](project_mobile_only_targets.md) — Editor errors under a Standalone build target are misconfigurations, not bugs; check reporter's build target first
+- [Feedback: No blank line between declarations and their block](feedback_blank_lines_declarations_blocks.md) — Declarations that set up a for/foreach/while/if are part of that block; no blank line before the keyword
+- [Feedback: Step large plans](feedback_step_large_plans.md) — Split plans into session-sized chunks (fit one Sonnet 200K session, no compaction); chunk is the unit, commit count is the implementer's call — don't frame plans as commits
+- [Feedback: Skip auto-QA on visual docs](feedback_skip_visual_qa.md) — Build + render once for the user to review; don't auto-spawn a fresh-eyes QA subagent (too slow, user checks faster)
+- [Project: Agentic deck (Voodoo)](project_agentic_deck_voodoo.md) — "Agentic Workflow" deck Voodoo re-skin: build script locations, output, role→color map
+- [Project: LiveEvent cheat base](project_liveevent_cheat_base.md) — All live-event cheat panels (Collections, HoleEscape, DailyMissions) share CheatDebugPanelFoldout_LiveEvent; extend it for new ones
+- [Feedback: Multiphase plan depth](feedback_multiphase_plan_depth.md) — Outline phases in the master plan and flag which need deeper planning; next-steps gates flagged phases (Opus planning prompt) before implementation
+- [Feedback: Tracker status sync](feedback_tracker_status_sync.md) — Keep ClickUp task status synced with plan-phase progress (in-progress on start, done on commit) without being asked
+- [Feedback: Commit-preparer delegation](feedback_commit_preparer_delegation.md) — Draft groupings on the main thread when session context is available; one agent call for execution only. Exclude parallel-session staged files explicitly.
+- [Feedback: Ask for known context](feedback_ask_known_context.md) — When the user likely knows the answer (intent of a change, whether a field was assigned), ask before reconstructing it with greps/diffs
+- [Feedback: HTML plan exports](feedback_html_plan_exports.md) — HTML exports under Docs/ are personal reference files; never stage or commit them, no need to ask
+- [Project: Localization settings refactor](project_localization_settings_refactor.md) — Phase 6 tools duplicate SpreadsheetId/ProviderAssetPath/TablesDir; settings SO design pending Chunk 2 session
+- [Project: Localization system is game-agnostic](project_localization_system_agnostic.md) — Designed reusable across all Voodoo projects; SO-driven config, no hardcoded paths, permanent code under Voodoo.Localization namespace
+- [Reference: Localization Notion docs](reference_localization_notion_docs.md) — Published team TDD: main page + 6 subpage URLs; local drafts (uncommitted) in Docs/UI/Systems/Localization/Notion/
+- [Project: Localization authoring is Pull-only](project_localization_authoring_pull_only.md) — Sheets is the single source of truth; nothing pushes to Sheets; Push/Sync-Structure tools are transitional and going away
