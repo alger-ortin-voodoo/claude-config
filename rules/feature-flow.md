@@ -65,7 +65,9 @@ the app rewrites live. So the workflow is *generate the exact name → Ctrl+R (D
 **Automation that works reliably:**
 - `/next-steps` puts a `Session name: …` line at the top of its continuation prompt (impl or `| Plan`
   variant as appropriate).
-- When a submitted prompt contains a `Session name:` line, **surface it first** — lead your reply with
-  a `🏷️ Rename this session: <name>` line — so the rename is one paste.
+- When a submitted prompt contains a `Session name:` line, **surface it first** — a short
+  `🏷️ Rename this session (Ctrl+R → paste):` label immediately followed by the **bare name alone in a
+  fenced code block** (it renders with a copy button → click-to-copy, then Ctrl+R + paste). Put only
+  the name string inside the block, nothing else.
 - `/name-session [feature | phase.substep name]` generates both canonical strings on demand (infers the
   parts from the active plan doc + context when args are omitted).

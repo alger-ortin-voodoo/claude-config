@@ -92,8 +92,9 @@ For sessions that implement or plan a phased-plan substep, the session title fol
 * **Planning / refinement:** `{feature} | {phase}.{substep} {substep-name} | Plan`
 
 Renaming is manual (no rename API): **Ctrl+R** in Desktop / `/rename` in CLI, then paste. So
-**proactively surface the correctly-formatted name** — lead your first reply with it when a pasted
-prompt carries a `Session name:` line (the `/next-steps` continuation prompt emits one), or whenever
+**proactively surface the correctly-formatted name in a fenced code block** (it renders with a copy
+button — one click to copy, then Ctrl+R + paste). Lead your first reply with it when a pasted prompt
+carries a `Session name:` line (the `/next-steps` continuation prompt emits one), or whenever
 feature/phase/substep are inferable from the plan doc. On-demand generator: `/name-session`. Detail →
 `~/.claude/rules/feature-flow.md`.
 
