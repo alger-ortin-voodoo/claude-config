@@ -49,30 +49,14 @@ This is a behavioral standing rule for the session driving the work — it can't
 
 # Session Naming Convention (phased-plan work)
 
-Phased plans are organized as phases → substeps, with **one ~200K Sonnet session per substep**. Name
-those sessions consistently so the Desktop sidebar groups them cleanly:
+Phased plans are organized as phases → substeps, with **one ~200K Sonnet session per substep** — name
+those sessions consistently so the Desktop sidebar groups them cleanly.
 
-The title is `{feature} | {scope}` with a trailing **session-type** segment — `Plan`, `Review`, `Fix`,
-etc. — for every type **except Implementation**, which omits it to keep the most common case short:
+**The naming format, scope rules, resolve logic, and proactive-surfacing behavior live in one place:**
+`~/.claude/rules/session-naming.md` (imported by `CLAUDE.md`, so it's always in context). Edit the
+convention there — do **not** restate it here.
 
-- **Implementation:** `{feature} | {scope}` — e.g. `Fallout | 0.2 Firebase Project`
-- **Plan / Review / Fix / … :** `{feature} | {scope} | {Type}` — e.g. `Fallout | 1.3 Character Stats | Plan`,
-  `Fallout | Phase 0 | Review`
-
-`{feature}` is usually constant for the project. `{scope}` is what the session is about — a substep
-(`1.3 Character Stats`) or, for phase-wide work like an end-of-phase review, the whole phase
-(`Phase 0`). `{Type}` is an open set (Plan, Review, Fix, …); **Implementation is the one type left unmarked.**
-
-**Renaming is manual.** There is no rename API/MCP tool, and the title lives in a Desktop-managed file
-the app rewrites live. So the workflow is *generate the exact name → Ctrl+R (Desktop) / `/rename`
-(CLI) → paste*.
-
-**Automation that works reliably:**
-- `/next-steps` puts a `Session name: …` line at the top of its continuation prompt (impl or `| Plan`
-  variant as appropriate).
-- When a submitted prompt contains a `Session name:` line, **surface it first** — a short
-  `🏷️ Rename this session (Ctrl+R → paste):` label immediately followed by the **bare name alone in a
-  fenced code block** (it renders with a copy button → click-to-copy, then Ctrl+R + paste). Put only
-  the name string inside the block, nothing else.
-- `/name-session [feature | phase.substep name]` generates both canonical strings on demand (infers the
+Automation that produces these names:
+- `/next-steps` puts a `Session name: …` line at the top of its continuation prompt.
+- `/name-session [feature | phase.substep name]` generates the canonical name on demand (infers the
   parts from the active plan doc + context when args are omitted).

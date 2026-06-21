@@ -63,7 +63,7 @@ Phases marked ready-as-is (or already deepened) skip this gate and use the norma
 **Then add a "Continuation prompt" line.** Provide a ready-to-paste prompt the user can use to kick off the next step. Tailor it to the recommendation:
 - If continuing this session: a short prompt that names the next step (e.g. "Implement step 3 of the plan — the reward-claim flow").
 - If starting fresh / `/clear` / a new session, or delegating to an agent: make it **self-contained** — name the feature, the plan doc path, the current step, and any decisions/constraints the new context won't have. The user should be able to paste it cold and have the work resume correctly.
-- **Session name line (phased-plan work).** When the next step is phased-plan work, make the **first line** of the continuation prompt `Session name: {feature} | {scope}` — append `| {Type}` (`Plan`/`Review`/`Fix`/…) for non-implementation sessions, nothing for implementation — per the *Session Naming Convention* in `~/.claude/rules/feature-flow.md`. The new session surfaces this so it can be renamed in one paste.
+- **Session name line (phased-plan work).** When the next step is phased-plan work, make the **first line** of the continuation prompt a `Session name:` line whose value is the canonical name per the Session Naming convention (`~/.claude/rules/session-naming.md`, always in context via `CLAUDE.md`). The new session surfaces this so it can be renamed in one paste.
 - Format it as a single fenced code block so it's easy to copy.
 
 **Clipboard copy (off by default — CLI-auto or opt-in).** The continuation prompt is already shown in the fenced block above; copying it to the clipboard is now conditional, so most runs end right after the prompt with no extra tool call:

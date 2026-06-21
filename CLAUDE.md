@@ -87,20 +87,11 @@ Discussion-only turns (no project-file `Edit`/`Write`) are exempt.
 
 ## Session Naming (phased-plan sessions)
 
-The title is `{feature} | {scope}`, with a trailing **session-type** segment for every type *except*
-Implementation (omitted to keep the common case short):
-* **Implementation:** `{feature} | {scope}` — e.g. `Fallout | 0.2 Firebase Project`
-* **Other types** (`Plan`, `Review`, `Fix`, …): `{feature} | {scope} | {Type}` — e.g.
-  `Fallout | 1.3 Character Stats | Plan`, `Fallout | Phase 0 | Review`
+> Single source: `~/.claude/rules/session-naming.md` (imported below) — format, scope rules,
+> proactive surfacing, and the manual Ctrl+R / `/rename` apply step all live there. Edit the
+> convention there, not here.
 
-`{scope}` = the substep, or the whole phase (`Phase 0`) for phase-wide work like an end-of-phase review.
-
-Renaming is manual (no rename API): **Ctrl+R** in Desktop / `/rename` in CLI, then paste. So
-**proactively surface the correctly-formatted name in a fenced code block** (it renders with a copy
-button — one click to copy, then Ctrl+R + paste). Lead your first reply with it when a pasted prompt
-carries a `Session name:` line (the `/next-steps` continuation prompt emits one), or whenever
-feature/phase/substep are inferable from the plan doc. On-demand generator: `/name-session`. Detail →
-`~/.claude/rules/feature-flow.md`.
+@~/.claude/rules/session-naming.md
 
 ---
 
@@ -151,9 +142,8 @@ feature/phase/substep are inferable from the plan doc. On-demand generator: `/na
    ready-as-is skip this gate.
 5. The continuation prompt in a fenced code block — self-contained (feature, plan doc path, step,
    key constraints, never-auto-commit reminder) whenever the recommendation is a fresh or cleared
-   session. For phased-plan work, make its **first line** `Session name: {feature} | {scope}` — append
-   `| {Type}` (`Plan`/`Review`/`Fix`/…) for non-implementation sessions, nothing for implementation —
-   per the *Session Naming* convention above.
+   session. For phased-plan work, make its **first line** a `Session name:` line whose value is the
+   canonical name per the *Session Naming* convention above.
 6. **Clipboard — off by default.** Do NOT copy the prompt to the clipboard automatically; under
    Claude Desktop / web (the normal case) just end after the fenced prompt. Copy it ONLY if the
    user explicitly asks, or you already know this is a CLI-terminal session — and even then never
