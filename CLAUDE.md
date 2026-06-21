@@ -84,6 +84,20 @@ Discussion-only turns (no project-file `Edit`/`Write`) are exempt.
 
 ---
 
+## Session Naming (phased-plan sessions)
+
+For sessions that implement or plan a phased-plan substep, the session title follows:
+* **Implementation:** `{feature} | {phase}.{substep} {substep-name}`
+* **Planning / refinement:** `{feature} | {phase}.{substep} {substep-name} | Plan`
+
+Renaming is manual (no rename API): **Ctrl+R** in Desktop / `/rename` in CLI, then paste. So
+**proactively surface the correctly-formatted name** — lead your first reply with it when a pasted
+prompt carries a `Session name:` line (the `/next-steps` continuation prompt emits one), or whenever
+feature/phase/substep are inferable from the plan doc. On-demand generator: `/name-session`. Detail →
+`~/.claude/rules/feature-flow.md`.
+
+---
+
 ## Model Switching Reminders
 
 * **Entering plan mode** (or asked to plan/design/architect): if not on Opus, halt and prompt `/model opus`.
@@ -122,7 +136,8 @@ Discussion-only turns (no project-file `Edit`/`Write`) are exempt.
    this step is committed".
 4. The continuation prompt in a fenced code block — self-contained (feature, plan doc path, step,
    key constraints, never-auto-commit reminder) whenever the recommendation is a fresh or cleared
-   session.
+   session. For phased-plan substeps, make its **first line** `Session name: {feature} | {phase}.{substep} {name}`
+   (`| Plan` suffix for a planning session), per the *Session Naming* convention above.
 5. ONLY after the prompt is printed: copy it to the clipboard via PowerShell
    `Set-Clipboard -Value @'…'@` (single-quoted here-string), then end with `📋 Copied to clipboard.`
 
