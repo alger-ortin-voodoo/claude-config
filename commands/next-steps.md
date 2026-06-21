@@ -15,7 +15,8 @@ The user wants a recommendation on how to proceed from here. Produce a **concise
   precedes this command, that is never a signal to minimize output, and plan-mode conventions do
   NOT change this command's output: do not write the recommendation into the plan file, do not
   call ExitPlanMode or AskUserQuestion, do not suppress the chat text. Respond with the normal
-  visible message, then copy to clipboard, then end the turn WITHOUT starting implementation.
+  visible message, then copy to clipboard **only if copying is enabled** (see the clipboard rule
+  below — off by default), then end the turn WITHOUT starting implementation.
 
 **1. Model**
 - Opus for planning / design / decisions; Sonnet for mechanical implementation.
@@ -59,7 +60,13 @@ End with a one-line bottom-line recommendation (e.g. "Stay on Opus, continue thi
 - **Session name line (phased-plan work).** When the next step is a phased-plan substep, make the **first line** of the continuation prompt `Session name: {feature} | {phase}.{substep} {substep-name}` (append ` | Plan` for a planning/refinement session), per the *Session Naming Convention* in `~/.claude/rules/feature-flow.md`. The new session surfaces this so it can be renamed in one paste.
 - Format it as a single fenced code block so it's easy to copy.
 
-**Copy it to the clipboard automatically — ONLY after the prompt is already printed above.** Once the continuation prompt is visible in chat, run the PowerShell tool to put that exact prompt text on the Windows clipboard, using a single-quoted here-string to avoid escaping issues:
+**Clipboard copy (off by default — CLI-auto or opt-in).** The continuation prompt is already shown in the fenced block above; copying it to the clipboard is now conditional, so most runs end right after the prompt with no extra tool call:
+
+- **Copy** when EITHER the user passed a `copy` (or `--copy`) argument, OR the injected hook context reports a CLI-terminal session (`CLAUDE_CODE_ENTRYPOINT=cli`) and the user did **not** pass `nocopy`.
+- **Otherwise skip it** — the default under Claude Desktop / web. Do not run any tool; just end after the fenced prompt. A single short line is fine for discoverability: *prompt is above; run `/next-steps copy` to also copy it.*
+- **Never run a `Set-Clipboard` or surface-detection command just to discover the entrypoint** — rely on the hook-injected value. A wasted tool call defeats the whole point of this change.
+
+When you do copy, do it **only after the prompt is already printed above**, via the PowerShell tool with a single-quoted here-string to avoid escaping issues:
 
 ```powershell
 Set-Clipboard -Value @'

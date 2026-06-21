@@ -138,8 +138,12 @@ feature/phase/substep are inferable from the plan doc. On-demand generator: `/na
    key constraints, never-auto-commit reminder) whenever the recommendation is a fresh or cleared
    session. For phased-plan substeps, make its **first line** `Session name: {feature} | {phase}.{substep} {name}`
    (`| Plan` suffix for a planning session), per the *Session Naming* convention above.
-5. ONLY after the prompt is printed: copy it to the clipboard via PowerShell
-   `Set-Clipboard -Value @'…'@` (single-quoted here-string), then end with `📋 Copied to clipboard.`
+5. **Clipboard — off by default.** Do NOT copy the prompt to the clipboard automatically; under
+   Claude Desktop / web (the normal case) just end after the fenced prompt. Copy it ONLY if the
+   user explicitly asks, or you already know this is a CLI-terminal session — and even then never
+   run a command *solely* to detect the surface. When you do copy: ONLY after the prompt is
+   printed, via PowerShell `Set-Clipboard -Value @'…'@` (single-quoted here-string), then end with
+   `📋 Copied to clipboard.`
 
 * **Scope guard:** fires once per **approved** plan only. Never produce recommendations before or
   during plan refinement iterations, and keep pre-approval `ExitPlanMode` messages free of them.
