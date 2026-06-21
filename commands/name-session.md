@@ -9,9 +9,15 @@ Produce the **canonical session name** for phased-plan work, following the conve
 - **Implementation** (default — no suffix): `{feature} | {scope}` — e.g. `Fallout | 0.2 Firebase Project`
 - **Any other type** (`Plan`, `Review`, `Fix`, …): `{feature} | {scope} | {Type}` — e.g.
   `Fallout | 1.3 Character Stats | Plan`, `Fallout | Phase 0 | Review`
+- **Phase-agnostic session** (a non-implementation session not tied to any phase/substep — a
+  general briefing, Q&A, repo-wide chore, tooling/config tweak): **drop `{scope}` entirely** →
+  `{feature} | {Type}` — e.g. `Fallout | Briefing`. Do NOT pad the name with a phase number the
+  session doesn't actually belong to.
 
 `{scope}` is what the session covers — a substep (`1.3 Character Stats`) or, for phase-wide work like
-an end-of-phase review, the whole phase (`Phase 0`).
+an end-of-phase review, the whole phase (`Phase 0`). When the work genuinely spans no particular
+phase, **omit `{scope}`** rather than forcing one (the phase-agnostic form above). Implementation
+always has a scope, so it never uses the dropped-scope form.
 
 **Resolve the parts:**
 1. If the user passed arguments, parse them as `{feature} | {scope}` with an optional trailing
