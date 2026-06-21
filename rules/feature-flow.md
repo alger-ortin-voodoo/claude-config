@@ -52,11 +52,16 @@ This is a behavioral standing rule for the session driving the work — it can't
 Phased plans are organized as phases → substeps, with **one ~200K Sonnet session per substep**. Name
 those sessions consistently so the Desktop sidebar groups them cleanly:
 
-- **Implementation:** `{feature} | {phase}.{substep} {substep-name}`
-- **Planning / refinement:** `{feature} | {phase}.{substep} {substep-name} | Plan`
+The title is `{feature} | {scope}` with a trailing **session-type** segment — `Plan`, `Review`, `Fix`,
+etc. — for every type **except Implementation**, which omits it to keep the most common case short:
 
-Examples: `Fallout | 0.2 Firebase Project`, `Fallout | 1.3 Character Stats | Plan`. `{feature}` is
-usually constant for the project; `{phase}.{substep}` and the name track the current step.
+- **Implementation:** `{feature} | {scope}` — e.g. `Fallout | 0.2 Firebase Project`
+- **Plan / Review / Fix / … :** `{feature} | {scope} | {Type}` — e.g. `Fallout | 1.3 Character Stats | Plan`,
+  `Fallout | Phase 0 | Review`
+
+`{feature}` is usually constant for the project. `{scope}` is what the session is about — a substep
+(`1.3 Character Stats`) or, for phase-wide work like an end-of-phase review, the whole phase
+(`Phase 0`). `{Type}` is an open set (Plan, Review, Fix, …); **Implementation is the one type left unmarked.**
 
 **Renaming is manual.** There is no rename API/MCP tool, and the title lives in a Desktop-managed file
 the app rewrites live. So the workflow is *generate the exact name → Ctrl+R (Desktop) / `/rename`
