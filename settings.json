@@ -15,6 +15,15 @@
             "shell": "powershell"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& \"$env:USERPROFILE\\.claude\\scripts\\commit-reminder.ps1\"",
+            "shell": "powershell"
+          }
+        ]
       }
     ],
     "Notification": [

@@ -66,6 +66,7 @@ enforcement lives here and in memory. There are no implementation agents.
 * **NEVER run `git commit`, `git push`, `git tag`, or any history-mutating git command without the user's explicit go-ahead *in this turn*.** A prior session's (or prior turn's) approval does not roll over.
 * Applies to the main thread AND every agent, **including** during `plan-implementer` runs.
 * After applying review fixes: **stop and tell the user** — don't auto-commit. The user often wants to compile-check in the Editor first.
+* **Proactively propose commits — don't wait to be asked.** When this session has produced a committable chunk, surface grouped, atomic commit(s) (per the format below) **before** ending the turn or running `/next-steps`. Proposing ≠ committing — the approval gate above still holds. A `commit-reminder` Stop hook backs this up: if the working tree is dirty when you try to stop, it blocks once and reminds you. Full discipline → `~/.claude/rules/commits.md`.
 * **Message format:** `Scope: Change Type - Description` — Scope is 1-4 words (often the branch/feature); Change Type is one word (Development, Fix, Setup, Cleanup, Documentation, Polishing, Content, Refactor, Optimization…); Description states purpose/intent, never enumerates files. Ticketed bug fixes get a `[HOL-XXXX]` prefix; intentionally non-compiling WIP gets `[WIP]`.
 * Change-Type vocabulary nuances, examples + full fix-application discipline → `~/.claude/rules/commits.md`.
 

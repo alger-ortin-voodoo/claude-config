@@ -7,6 +7,13 @@
 
 These apply to the main thread AND every agent. No exceptions.
 
+### Proactively propose commits (don't wait to be asked)
+
+- When the session has produced a **committable chunk** — a coherent, self-contained slice of work — **propose commits for it** unprompted. This is part of finishing the work, not an optional courtesy.
+- **Never end a turn, declare the task "done", or run `/next-steps` with uncommitted work in the tree without first proposing grouped commit(s).** This is the exact failure to avoid: treating the session as finished while committable changes sit unstaged.
+- Proposing is not committing — the approval gate below still applies in full. Lay out the grouping + messages, then wait for the go-ahead.
+- A `commit-reminder` **Stop hook** (`~/.claude/scripts/commit-reminder.ps1`, wired in `settings.json`) enforces this: if the working tree is dirty when you try to stop, it blocks once and re-prompts you. It debounces per dirty-state — so if the user genuinely declined, or the changes are WIP / not yours to commit, acknowledge that in one line and stop; you won't be nagged again for the same state.
+
 ### Never commit without explicit user approval
 
 - **NEVER run `git commit`, `git push`, `git tag`, or any history-mutating git command without the user's explicit go-ahead in this turn.** A prior session's approval does not roll over.
