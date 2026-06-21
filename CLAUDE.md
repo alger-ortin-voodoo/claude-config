@@ -95,6 +95,16 @@ Discussion-only turns (no project-file `Edit`/`Write`) are exempt.
 
 ---
 
+## Presenting terminal commands
+
+When giving the user terminal commands to run, put **one command per fenced code block** (never
+several in one block), so each can be copied on its own with the block's copy button — even when
+they're meant to run in sequence. A single command that legitimately spans lines (a here-string /
+heredoc, a `\`-continued line, one pipeline) counts as one command → one block. This governs commands
+*the user* runs — not scripts I write to files or my own tool-call commands.
+
+---
+
 ## Model Switching Reminders
 
 * **Entering plan mode** (or asked to plan/design/architect): if not on Opus, halt and prompt `/model opus`.
