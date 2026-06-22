@@ -1,6 +1,6 @@
 ---
 name: project-localization-authoring-pull-only
-description: Post-cutover localization authoring is Pull-only — Google Sheets is the single source of truth; nothing pushes to Sheets; Push / Sync-Structure tools were transitional and will be removed.
+description: Post-cutover localization authoring is Pull-only — Google Sheets is the single source of truth; nothing pushes to Sheets; Push tooling was removed, but Sync Structure stays as an owner-only, menu-only admin tool (deliberately not in the Tools Window).
 metadata: 
   node_type: memory
   type: project
@@ -13,7 +13,7 @@ The transitional/one-shot/push tooling was **removed 2026-06-20** (this session)
 
 **Why:** During the migration the Unity tables temporarily owned keys/EN, so Push existed as a transitional bridge. The end-state design is Sheet-as-source-of-truth, Pull-only.
 
-**How to apply:** When advising on the loca workflow or drafting team comms, present Pull as the only sync direction. Never recommend or re-add Push. `Sync Structure` / `Sync Structure + Content` are admin tools (can prune tables), not routine team-facing ones.
+**How to apply:** When advising on the loca workflow or drafting team comms, present Pull as the only sync direction. Never recommend or re-add Push. `Sync Structure` / `Sync Structure + Content` are admin tools (can prune tables), not routine team-facing ones — and they are **permanent, not being phased out**. They are deliberately **menu-only**, kept out of the Localization Tools Window (whose Sync tab carries only Pull All) because only the loca owner runs them; do not propose surfacing them in the window. The window's Validate tab has all 4 lints and the Fonts tab has all 4 font tools (Regenerate Atlases, Verify: Log Glyph Counts, Language Picker Regenerate/Check Coverage).
 
 Note: tab exclusion from the structural sync is **keyword-based** (changed 2026-06-20, commit `3eba43bfa3`) — `LocalizationToolingSettings.ExcludedTabKeywords` (default `EXCLUDE`, case-insensitive substring match on the tab name). Tabs can be reordered freely and multiple tabs excluded (instructions, retired Lean, etc.). To retire/exclude a tab, **put a keyword in its name** — otherwise the next `Sync Structure` adopts it as a runtime collection. (This replaced the old `ExcludeFirstTabAsLeanSource` index-0 guard.) See [[reference-localization-notion-docs]] / the migration caveats.
 
