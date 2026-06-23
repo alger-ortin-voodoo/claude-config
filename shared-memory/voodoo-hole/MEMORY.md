@@ -63,3 +63,4 @@
 - [Project: Localization system is game-agnostic](project_localization_system_agnostic.md) — Designed reusable across all Voodoo projects; SO-driven config, no hardcoded paths, permanent code under Voodoo.Localization namespace
 - [Reference: Localization Notion docs](reference_localization_notion_docs.md) — Published team TDD: main page + 6 subpage URLs; local drafts (uncommitted) in Docs/UI/Systems/Localization/Notion/
 - [Project: Localization authoring is Pull-only](project_localization_authoring_pull_only.md) — Sheets is the single source of truth; nothing pushes to Sheets; Push removed, but Sync Structure stays as an owner-only, menu-only admin tool (deliberately out of the Tools Window)
+- [Project: Skins legacy system](project_skins_legacy_system.md) — SkinManager (int-index) + SkinsManager (string-id) + SpecialOfferV2 are all legacy, pending full refactor; don't treat as the convention
