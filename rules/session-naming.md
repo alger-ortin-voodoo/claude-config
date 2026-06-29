@@ -17,17 +17,20 @@ phase/substep, **drop `{scope}` entirely**:
   — e.g. `Fallout | 0.2 Firebase Project`
 - **Phased non-implementation** (`Plan`, `Review`, `Fix`, …): `{feature} | {scope} | {Type}`
   — e.g. `Fallout | 1.3 Character Stats | Plan`, `Fallout | Phase 0 | Review`
-- **Phase-agnostic non-implementation** — a session not tied to any phase/substep (a general
-  briefing, Q&A, repo-wide chore, tooling/config tweak): drop `{scope}` → `{feature} | {Type}`
-  — e.g. `Fallout | Briefing`. Do **NOT** pad the name with a phase number the session doesn't
-  belong to.
+- **Phase-agnostic non-implementation** — a session not tied to any phase/substep. Prefer a short
+  **topical scope** (the subject the session covers) when it adds specificity →
+  `{feature} | {scope} | {Type}` — e.g. `Surge | Camera & Physics | Docs`. Drop `{scope}` **only**
+  when there's no meaningful subject (a general briefing, Q&A, repo-wide chore) →
+  `{feature} | {Type}` — e.g. `Fallout | Briefing`. Never pad the name with a phase *number* the
+  session doesn't belong to — but a topical scope is not a phase number, so use one.
 
 The parts:
 - **`{feature}`** — usually constant for the project (e.g. `Fallout`).
-- **`{scope}`** — what the session covers: a substep (`1.3 Character Stats`) or, for phase-wide work
-  like an end-of-phase review, the whole phase (`Phase 0`). **Omit it** when the work spans no
-  particular phase (phase-agnostic form above). Implementation always has a scope, so it never
-  drops it.
+- **`{scope}`** — what the session covers: a substep (`1.3 Character Stats`), a whole phase for
+  phase-wide work like an end-of-phase review (`Phase 0`), or — when the session isn't tied to a
+  phase — a short **topical descriptor** of the subject (`Camera & Physics`). **Drop it only** when
+  the work has no particular subject at all (a general briefing/Q&A). Implementation always has a
+  scope, so it never drops it.
 - **`{Type}`** — the session's nature; an **open set** (Plan, Review, Fix, Briefing, …).
   **Implementation is the one type left unmarked.**
 
@@ -37,8 +40,10 @@ The parts:
    (or a loose form like `fallout 1.3 character stats plan`).
 2. **Otherwise infer from context:** the active plan doc (`Glob` `docs/**/*plan*.md` or the project's
    master plan), the branch name, and what the session is actually doing.
-3. **If the session isn't tied to any phase/substep**, use the phase-agnostic form `{feature} |
-   {Type}` — don't force an unrelated phase number into the name.
+3. **If the session isn't tied to any phase/substep**, use a short **topical scope** naming the
+   subject (`{feature} | {scope} | {Type}`, e.g. `Surge | Camera & Physics | Docs`); drop `{scope}`
+   only when there's no meaningful subject (truly general work). Never force an unrelated phase
+   number into the name.
 4. Only ask the user if a part is genuinely ambiguous and can't be inferred.
 
 ## Applying & surfacing a name
