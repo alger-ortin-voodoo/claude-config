@@ -64,3 +64,4 @@
 - [Reference: Localization Notion docs](reference_localization_notion_docs.md) — Published team TDD: main page + 6 subpage URLs; local drafts (uncommitted) in Docs/UI/Systems/Localization/Notion/
 - [Project: Localization authoring is Pull-only](project_localization_authoring_pull_only.md) — Sheets is the single source of truth; nothing pushes to Sheets; Push removed, but Sync Structure stays as an owner-only, menu-only admin tool (deliberately out of the Tools Window)
 - [Project: Skins legacy system](project_skins_legacy_system.md) — SkinManager (int-index) + SkinsManager (string-id) + SpecialOfferV2 are all legacy, pending full refactor; don't treat as the convention
+- [Project: Surge tuning sprint](project_surge_tuning.md) — Camera/physics tuning sprint; physics deck built around Etienne's 9 params (8/9 tweakable today, only suction acceleration needs a new system); deck location + Drive-path nuance

@@ -1,0 +1,25 @@
+---
+name: project-surge-tuning
+description: "Surge = camera/physics/movement tuning sprint; physics deck built around Etienne's 9 params"
+metadata: 
+  node_type: memory
+  type: project
+  originSessionId: 6572310d-bd6f-48f1-8e59-48e2e7c12d60
+---
+
+"Surge" is a multi-day sprint (started 2026-06-29) tweaking the game's camera and physics/feel. Branch: `samba/surge/cf/camera-and-physics-tweaking`. Deliverables live in `G:\La meva unitat\Tech Docs\Surge` (note: on this machine the Drive root is `G:\La meva unitat\...`, NOT the `G:\Voodoo\La meva unitat\...` written in the brand-style rule / [[project-agentic-deck-voodoo]] — the mapping varies per machine; Voodoo logo PNGs are at `G:\La meva unitat\Tech Docs\Claude Agents Showcase\assets`).
+
+Deliverables built with `surge-physics-deck-build.js` (in the Surge folder, pptxgenjs, Voodoo brand style, run with `NODE_PATH` → scratchpad node_modules since pptxgenjs isn't installed in-repo). Three decks: `surge-physics-parameters.pptx` (9 slides, Etienne's 9-param wishlist), `surge-camera-parameters.pptx` (7 slides, 4-layer camera reference), `surge-tuning-summary.pptx` (2-slide merged exec summary). Designer-facing, effect-first. No headless renderer on this machine (no LibreOffice / PowerPoint COM) → content-QA via text extraction only; user eyeballs the render. Two Notion tech-docs reviewed: Camera (`112a0b481db48058835fc39a94998d78`) and Hole Mechanic & Falling Objects (`322a0b481db480b38828d44d0c412d26`) — broadly match code; Hole doc cites gravity −100 vs code default −80 (confirm live remote value).
+
+Camera = 4 layers: remote dials (GameplayCameraConfig: rig variant + per-level spring/lookahead arrays + shake toggle/factor + transition) are 🟢 remote; progression curves (CameraSettings SO), feel systems (VirtualCameraFraming prefab), shake profiles (CameraShakeConfig SO) are 🟡 authored.
+
+Key finding (validated with Iván, lead gameplay dev): **8 of 9 params are tweakable today; only "suction acceleration" needs a new system.** Mapping of Etienne's terms → code:
+- Gravity → `GamePhysicsConfig.Gravity` (−80, remote)
+- Mass / Air resistance / Angular momentum → per-size `FallingObjectsOverrides` table (mass 3→250, drag, angularDrag; remote JSON)
+- Friction → remote: `GamePlayConfig.defaultMaterialDynamicFriction`/`defaultMaterialStaticFriction` (0.6, fetched via `VoodooSauce.GetItemOrDefault<GamePlayConfig>()`) applied to the shared `defaultPhysicMaterial`, PLUS hole `InnerHole`/`FloorHole` (remote). NOT in the per-size table. **Bug found & fixed (GameManager.cs:115): both assignment lines wrote `.dynamicFriction`; static-friction line now correctly sets `.staticFriction` — fixed in working tree, not committed.**
+- Bounciness → hole materials (remote, currently 0); object base-material bounce is authored (no remote field in GamePlayConfig)
+- Internal friction → `InnerHole`/`FloorHole` material friction (0.45/0.6, remote)
+- Influence radius → hole trigger CapsuleCollider radius (scales w/ size; authored) + `QualityProfileConfig.ObjectSafetyRadiusRelativeMultiplier` (remote)
+- **Suction acceleration → does NOT exist.** Objects fall in by gravity only. Needs a new inward-pull force system AND disabling `HoleUnblocker` (its bounce/spit forces would fight suction).
+
+Status labels used in the deck: 🟢 Live·remote (VoodooTune) / 🟡 Needs a build (SO/prefab) / 🔴 New system. Audience = designers/PM, effect-first. Camera + movement systems were explored but dropped from scope once Etienne's list landed.
