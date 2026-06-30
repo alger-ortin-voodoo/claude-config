@@ -22,7 +22,8 @@ The VoodooTune MCP (`mcp__voodootune__*`) exposes the full read+write VoodooTune
   `technicalName` == the C# `[RemoteConfig]` class name exactly; `displayName` carries a ` [Samba]`
   suffix (Samba = the studio); each C# field is one attribute with `bool→boolean`, `float→float`,
   JSON-string→`json`; a single-instance class (`multiInstance:false`) holds one instance with the
-  default `values` map and `enabled:true`. Create via `create_class`; fetch with
+  default `values` map and `enabled:true`. The VT class `description` should be sourced from the C#
+  class's XML `<summary>` (keep them in sync). Create via `create_class`; fetch with
   `get_class(appId, version, classTechnicalName)`.
 - **AB test:** `create_ab_test` (needs name, priority, segments[]) → `create_cohort`/`add_cohort`
   (control with `isControl:true`; variants carry `overrideValues:[{class, instances}]`) →

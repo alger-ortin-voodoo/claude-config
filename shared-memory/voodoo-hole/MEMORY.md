@@ -32,6 +32,7 @@
 - [Reference: Collections Notion GDD sync](reference_collections_notion_gdd.md) — Two Notion code blocks mirror `EconomyConfig.CollectionsRewards` and the `MilestonesData` example; keep them updated when those code defaults change
 - [Reference: Live Ops Notion system doc](reference_liveops_notion_system.md) — Generic Live Ops tech-doc page; keep its LiveEventConfig parameter table synced when base config fields change (e.g. AcknowledgeEventFinished.Auto)
 - [Reference: VoodooTune cache refresh](reference_voodootune_cache_refresh.md) — Dashboard config edits need Publish + "Cache Production Data" menu; Editor/build read a prebuilt asset, not live
+- [Reference: VoodooTune MCP](reference_voodootune_mcp.md) — Full read+write VT API via MCP; Hole.io app_id, login-token auth, class convention (technicalName=C# name, [Samba] suffix), wip→publish, AB-test flow
 - [Feedback: Skip agents for clear plans](feedback_skip_agents_for_clear_plans.md) — No implementation agents exist; main thread drives all implementation. Delegate only for planning, review, or debugging.
 - [Feedback: Reviewer null-safety nuance](feedback_reviewer_null_safety_nuance.md) — The `?.` / `??` rule is Unity-Object-only; plain C# objects are fine. Verify type before flagging.
 - [Feedback: No Unity Reimport All](feedback_no_unity_reimport_all.md) — NEVER trigger Assets/Reimport All. On refresh_assets timeout, STOP and report — don't escalate.
