@@ -16,8 +16,9 @@ The VoodooTune MCP (`mcp__voodootune__*`) exposes the full read+write VoodooTune
 - **Hole.io app_id:** `9a9671df-7c75-482f-abe9-6f7cf57fb2b4` (iosBundleId `com.nguyenvh.holeio`,
   androidBundleId `io.voodoo.holeio`; 3 subAppIds for variants/envs). Resolve others via `list_apps`
   or `get_app_id(bundle_id, platform)`.
-- **Versions:** every write targets the **`wip`** version; promote with `publish_version`
-  (`wip`→`live`). Reads can target `live` or `wip`.
+- **Versions:** every write targets the **`wip`** version. **NEVER call `publish_version` via MCP** —
+  the team always validates and fine-tunes in `wip` first, then promotes to `live` manually via the
+  dashboard. Reads can target `live` or `wip`.
 - **Remote-config class convention** (verified against the live `GamePhysicsConfig` class): VT class
   `technicalName` == the C# `[RemoteConfig]` class name exactly; `displayName` carries a ` [Samba]`
   suffix (Samba = the studio); each C# field is one attribute with `bool→boolean`, `float→float`,
