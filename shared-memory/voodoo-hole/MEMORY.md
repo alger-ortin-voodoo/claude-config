@@ -34,6 +34,7 @@
 - [Reference: VoodooTune cache refresh](reference_voodootune_cache_refresh.md) — Dashboard config edits need Publish + "Cache Production Data" menu; Editor/build read a prebuilt asset, not live
 - [Reference: VoodooTune MCP](reference_voodootune_mcp.md) — Full read+write VT API via MCP; Hole.io app_id, login-token auth, class convention (technicalName=C# name, [Samba] suffix), wip→publish, AB-test flow
 - [Feedback: VT ↔ C# lockstep](feedback_vt_csharp_lockstep.md) — Proactively sync the VT class to any C# [RemoteConfig] change (values + schema), don't wait to be asked; update wip, never publish
+- [Reference: Hole Mechanic Notion doc](reference_hole_mechanic_notion_doc.md) — Its HoleSuctionConfig table + gravity note mirror the C# defaults; keep synced when those change (esp. during suction tuning)
 - [Feedback: Skip agents for clear plans](feedback_skip_agents_for_clear_plans.md) — No implementation agents exist; main thread drives all implementation. Delegate only for planning, review, or debugging.
 - [Feedback: Reviewer null-safety nuance](feedback_reviewer_null_safety_nuance.md) — The `?.` / `??` rule is Unity-Object-only; plain C# objects are fine. Verify type before flagging.
 - [Feedback: No Unity Reimport All](feedback_no_unity_reimport_all.md) — NEVER trigger Assets/Reimport All. On refresh_assets timeout, STOP and report — don't escalate.
