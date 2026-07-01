@@ -14,7 +14,10 @@ Implementation** (which omits it to keep the common case short). When a session 
 phase/substep, **drop `{scope}` entirely**:
 
 - **Implementation** (default — no suffix): `{feature} | {scope}`
-  — e.g. `Fallout | 0.2 Firebase Project`
+  — e.g. `Fallout | 0.2 Firebase Project`. When **phase-agnostic**, make `{scope}` a concrete
+  *work/deliverable* descriptor, not just the subject area — since there's no `{Type}` segment to
+  convey the activity, the scope must carry it. E.g. `Surge | Hole Suction Tuning`, not
+  `Surge | Hole Suction`.
 - **Phased non-implementation** (`Plan`, `Review`, `Fix`, …): `{feature} | {scope} | {Type}`
   — e.g. `Fallout | 1.3 Character Stats | Plan`, `Fallout | Phase 0 | Review`
 - **Phase-agnostic non-implementation** — a session not tied to any phase/substep. Prefer a short
